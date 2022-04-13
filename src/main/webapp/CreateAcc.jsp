@@ -19,7 +19,7 @@
 	    <label >Password</label><br>
 	    <input type="text" id="password" name="password"> <br>
 	    <label >Confirm Password</label><br>
-	    <input type="text" id="confirm password" name="confirm password">
+	    <input type="text" id="confirm password" name="confirm password"> <br>
 	    <input type="submit" value="Create Account" />
     </form>
 </body>

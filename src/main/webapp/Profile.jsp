@@ -7,15 +7,19 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Logout</title>
+	<title>Profile</title>
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
-	<%
-	    HttpSession session1=request.getSession();  
-	    session1.invalidate();
-
-	    out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />"); 
+	<% 	
+	    if(session.getAttribute("username")!=null){  
+	        String username=(String)session.getAttribute("username");
+	        out.print("<h5>Username: "+username+"</h5>"); 
+	    }
+	    else{  
+        	out.print("<a href=\"Login.jsp\">Sign In</a>");
+        	//out.print("<form method=\"post\" action=\"	Login.jsp\"><input type=\"submit\" value=\"Sign In\" /></form>");  
+        }  
         out.close();  
 	%>
 </body>
