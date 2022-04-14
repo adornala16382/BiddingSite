@@ -16,15 +16,12 @@
 		        if(session.getAttribute("username")!=null){  
 					String username=(String)session.getAttribute("username");
 		        	out.print("<a>Welcome "+username+"</a>"); 
-		        	out.print("<a href=\"LogoutLogic.jsp\">Sign Out</a>");
-					out.print("<a href=\"Profile.jsp\" class=\"dropbtn\">Profile<i class=\"fa fa-caret-down\"></i></a>");
-    				out.print("<div class=\"topnav-right-content\"><a href=\"#\">Link 1</a></div>");
-		        	//out.print("<form method=\"post\" action=\"LogoutLogic.jsp\"><input type=\"submit\" value=\"Sign Out\" /></form>");
-		        	//out.print("<a>Profile</a>");
-		        }  
+					%>
+		        	<a href="LogoutLogic.jsp">Sign Out</a>
+					<a href="Profile.jsp">Profile</a>
+		        <%}  
 		        else{  
 		        	out.print("<a href=\"Login.jsp\">Sign In</a>");
-		        	//out.print("<form method=\"post\" action=\"	Login.jsp\"><input type=\"submit\" value=\"Sign In\" /></form>");  
 		        }  
 		        out.close();  
 			%>

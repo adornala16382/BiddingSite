@@ -31,7 +31,7 @@
 			
 			if(result.next()){
 				if(result.getString("COUNT(*)").equals("1")==true){
-			        HttpSession session1=request.getSession();  
+			        request.getSession();  
 			        session.setAttribute("username",username);
 					out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 				}

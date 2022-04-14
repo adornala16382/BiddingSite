@@ -11,9 +11,8 @@
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
-	<%
-	    HttpSession session1=request.getSession();  
-	    session1.invalidate();
+	<% 
+	    session.invalidate();
 
 	    out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />"); 
         out.close();  
