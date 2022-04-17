@@ -13,9 +13,9 @@
 <body>
 	<% 
 	    session.invalidate();
+		String prevPage = request.getParameter("prev");
+	    out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"\"' />"); 
 
-	    out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />"); 
-        out.close();  
 	%>
 </body>
 </html>

@@ -9,6 +9,32 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Insert title here</title>
 	<link href="styles.css" rel="stylesheet">
+	<div class="topnav">
+		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
+		<div class="topnav-right">
+			<% 	
+			String prevURI = request.getRequestURI();
+        	String prevParam = request.getQueryString();
+        	String prevPath;
+        	if(prevParam==null){
+        		prevPath = prevURI;
+        	}
+        	else{
+        		prevPath = prevURI+"?"+prevParam;
+        	}
+	        if(session.getAttribute("username")!=null){  
+				String username=(String)session.getAttribute("username");
+	        	out.print("<a>Welcome "+username+"</a>"); 
+	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
+				%>
+				<a href="Profile.jsp">Profile</a>
+	        <%}  
+	        else{
+	        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
+	        }     
+			%>
+		</div>
+	</div>
 </head>
 <body>
 	<% 
@@ -33,10 +59,11 @@
 				if(result.getString("COUNT(*)").equals("1")==true){
 			        request.getSession();  
 			        session.setAttribute("username",username);
-					out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
+			        String prevPage = request.getParameter("prev");
+					out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"\"' />");
 				}
 				else{
-					out.print("Account doesn't exist");
+					out.print("Username or password is incorrect");
 				}
 			}
 			else{
@@ -48,12 +75,9 @@
 			stmt.close();
 			con.close();
 			
-			
-			
 		} catch (Exception ex) {
 			out.print(ex);
 		}
-		out.close();
 	%>
 
 </body>

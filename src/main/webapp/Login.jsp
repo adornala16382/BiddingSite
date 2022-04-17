@@ -10,11 +10,22 @@
 <body>
     <h1>Sign in</h1>
     <div class="sign_in">
-      <form method="post" action="LoginLogic.jsp">
+    <% 
+    	String prevPage = request.getParameter("prev");
+		String prevPath;
+		if(prevPage==null){
+			prevPath = "";
+		}
+		else{
+			prevPath = prevPage;
+		}
+		out.print("<form method=\"post\" action=\"LoginLogic.jsp?prev="+prevPage+"\">");
+	%>
+      <form method="post" action="LoginLogic.jsp?">
       <label for="username">Username:</label><br>
       <input type="text" id="username" name="login username"><br>
       <label for="password">Password</label><br>
-      <input type="text" id="password" name="login password"> <br>
+      <input type="text" id="password" name="login password"><br>
       <input type="submit" value="Sign In" />
       </form>
        

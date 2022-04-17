@@ -31,7 +31,7 @@
 	        <%}  
 	        else{
 	        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
-	        }  
+	        }   
 			%>
 		</div>
 	</div>
@@ -41,6 +41,7 @@
 		<table id="myTable">
 		  <tr class="header">
 		    <th style="width:30%;">Name</th>
+		    <th style="width:60%;">Current Bid</th>
 		  </tr>
 		  <%
 		  	try {
@@ -68,6 +69,12 @@
 						<% out.print("<a href=\"Details.jsp?id="+model+"\">"); %>
 						<% out.print(model); %>
 						</a>
+						</td>
+						<td>
+						<% out.print("<button>Place Bid</button>"); %>
+						</td>
+						<td>
+						<% out.print("Seller"); %>
 						</td>
 					<tr>
 				<%

@@ -10,18 +10,27 @@
 	<title>Profile</title>
 	<link href="styles.css" rel="stylesheet">
     <div class="topnav">
-		<a class="active" href="Home.jsp">Home</a>
+		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
 		<div class="topnav-right">
 			<% 	
+				String prevURI = request.getRequestURI();
+	        	String prevParam = request.getQueryString();
+	        	String prevPath;
+	        	if(prevParam==null){
+	        		prevPath = prevURI;
+	        	}
+	        	else{
+	        		prevPath = prevURI+"?"+prevParam;
+	        	}
 		        if(session.getAttribute("username")!=null){  
 					String username=(String)session.getAttribute("username");
 		        	out.print("<a>Welcome "+username+"</a>"); 
+		        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
 					%>
-		        	<a href="LogoutLogic.jsp">Sign Out</a>
 					<a href="Profile.jsp">Profile</a>
 		        <%}  
-		        else{  
-		        	out.print("<a href=\"Login.jsp\">Sign In</a>");
+		        else{
+		        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
 		        }    
 			%>
 		</div>
@@ -76,7 +85,6 @@
 	    else{  
         	out.print("<a href=\"Login.jsp\">Sign In</a>"); 
         }  
-        out.close();  
 	%>
 </body>
 </html>

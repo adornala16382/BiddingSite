@@ -8,11 +8,36 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link href="styles.css" rel="stylesheet">
-<title>Insert title here</title>
+	<title>Create Account</title>
+		<div class="topnav">
+		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
+		<div class="topnav-right">
+			<% 	
+			String prevURI = request.getRequestURI();
+        	String prevParam = request.getQueryString();
+        	String prevPath;
+        	if(prevParam==null){
+        		prevPath = prevURI;
+        	}
+        	else{
+        		prevPath = prevURI+"?"+prevParam;
+        	}
+	        if(session.getAttribute("username")!=null){  
+				String username=(String)session.getAttribute("username");
+	        	out.print("<a>Welcome "+username+"</a>"); 
+	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
+				%>
+				<a href="Profile.jsp">Profile</a>
+	        <%}  
+	        else{
+	        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
+	        }     
+			%>
+		</div>
+	</div>
 </head>
 <body>
 	<%
-
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String confirmPassword = request.getParameter("confirm password");
@@ -51,15 +76,17 @@
 					//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 					stmt.close();
 					con.close();
-			
-					out.print("Insert succeeded!");
+					
+			        request.getSession();  
+			        session.setAttribute("username",username);
+			        
+					out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 					
 				} catch (Exception ex) {
 					out.print("Something went wrong");
 					out.print(ex);
 				}
 			}
-		out.close();
 	%>
 </body>
 </html>

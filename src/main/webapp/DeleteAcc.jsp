@@ -9,6 +9,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Delete Account</title>
 	<link href="styles.css" rel="stylesheet">
+    <div class="topnav">
+		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
+		<div class="topnav-right">
+		    <a href="Login.jsp">Sign In</a>"
+		</div>
+	</div>
 </head>
 <body>
 	<%
@@ -46,9 +52,8 @@
             }
         }
         else{
-            out.print("<a href=\"Login.jsp\">Sign In</a>");
+            out.print("You are not signed in");
         }
-		out.close();
 	%>
 </body>
 </html>
