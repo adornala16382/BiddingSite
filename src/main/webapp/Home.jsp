@@ -37,11 +37,10 @@
 	</div>
 </head>
 <body>
+	<br>
 	<form method="get" action="Search.jsp">
-		<div class="searchBox">
-		<input size="50" type="text" name="key" placeholder="Search for items..">
-		<input type="submit" value="Search" />
-		</div>
+			<input class="searchBar" type="text" name="key" placeholder="Search for items..">
+			<input class="searchButton" type="submit" value="Search" />
 	</form>
 </body>
 </html>

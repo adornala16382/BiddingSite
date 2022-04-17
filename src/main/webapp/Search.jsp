@@ -37,18 +37,18 @@
 	</div>
 </head>
 <body>
-	<form class="searchBox" method="get" action="Search.jsp">
-		<div class="searchBox">
+	<br>
+	<form method="get" action="Search.jsp">
 		<% String search = request.getParameter("key"); 
 			if(search==null){
 				out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 			}
 			
-			out.print("<input size=50 type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
+			out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
 		%>
-		<input type="submit" value="Search" />
-	</div>
+		<input class="searchButton" type="submit" value="Search" />
 	</form>
+	<div class="padding20"></div>
 		  <%
 		  	try {
 				
@@ -71,9 +71,13 @@
 					//String id = result.getString("id");
 					//String curBid = result.getString("curBid");
 					//String seller = result.getString("seller");
-					out.print("<a href=\"Details.jsp?id="+model+"\">"); 
-					out.print(model); %>
-					</a><br>
+					%>
+					<div class="itemBox">
+					<%
+						out.print("<a href=\"Details.jsp?id="+model+"\">"); 
+						out.print(model); %>
+						</a>
+					</div>
 				<%
 				}
 				if(len==0){
@@ -87,6 +91,5 @@
 				out.print(ex);
 			}	  
 		  %>
-		</table>
 </body>
 </html>

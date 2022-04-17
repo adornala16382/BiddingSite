@@ -37,9 +37,17 @@
 	</div>
 </head>
 <body>
+	<br>
+	<form method="get" action="Search.jsp">
+			<input class="searchBar" type="text" name="key" placeholder="Search for items..">
+			<input class="searchButton" type="submit" value="Search" />
+	</form>
+	<div class="padding20"></div>
+	<div class="detailBox">
 	<%
 		String id = request.getParameter("id");
 		out.print(id);
 	%>
+	</div>
 </body>
 </html>
