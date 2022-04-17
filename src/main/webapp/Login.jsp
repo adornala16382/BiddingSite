@@ -21,7 +21,6 @@
 		}
 		out.print("<form method=\"post\" action=\"LoginLogic.jsp?prev="+prevPage+"\">");
 	%>
-      <form method="post" action="LoginLogic.jsp?">
       <label for="username">Username:</label><br>
       <input type="text" id="username" name="login username"><br>
       <label for="password">Password</label><br>

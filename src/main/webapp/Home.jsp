@@ -37,72 +37,11 @@
 	</div>
 </head>
 <body>
-	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items..">
-		<table id="myTable">
-		  <tr class="header">
-		    <th style="width:30%;">Name</th>
-		  </tr>
-		  <%
-		  	try {
-
-				//Get the database connection
-				ApplicationDB db = new ApplicationDB();	
-				Connection con = db.getConnection();	
-				
-				//Create a SQL statement
-				Statement stmt = con.createStatement();
-				//Get the combobox from the index.jsp
-				//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-				String str = "SELECT model FROM Test;";
-				//Run the query against the database.
-				ResultSet result = stmt.executeQuery(str);
-				
-				while(result.next()){
-					String model = result.getString("model");
-					//String id = result.getString("id");
-					//String curBid = result.getString("curBid");
-					//String seller = result.getString("seller");
-					%>
-					<tr>
-						<td>
-						<% out.print("<a href=\"Details.jsp?id="+model+"\">"); %>
-						<% out.print(model); %>
-						</a>
-						</td>
-					<tr>
-				<%
-				}
-				//close the connection.
-				result.close();
-				stmt.close();
-				con.close();
-			}catch (Exception ex) {
-				out.print(ex);
-			}	  
-		  %>
-		</table>
-	<script>
-		function myFunction() {
-		  // Declare variables
-		  var input, filter, table, tr, td, i, txtValue;
-		  input = document.getElementById("myInput");
-		  filter = input.value.toUpperCase();
-		  table = document.getElementById("myTable");
-		  tr = table.getElementsByTagName("tr");
-		
-		  // Loop through all table rows, and hide those who don't match the search query
-		  for (i = 0; i < tr.length; i++) {
-		    td = tr[i].getElementsByTagName("td")[0];
-		    if (td) {
-		      txtValue = td.textContent || td.innerText;
-		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		        tr[i].style.display = "";
-		      } else {
-		        tr[i].style.display = "none";
-		      }
-		    }
-		  }
-		}
-	</script>
+	<form method="get" action="Search.jsp">
+		<div class="searchBox">
+		<input size="50" type="text" name="key" placeholder="Search for items..">
+		<input type="submit" value="Search" />
+		</div>
+	</form>
 </body>
 </html>

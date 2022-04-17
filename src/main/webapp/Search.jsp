@@ -31,53 +31,53 @@
 	        <%}  
 	        else{
 	        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
-	        }   
+	        }  
 			%>
 		</div>
 	</div>
 </head>
 <body>
-	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items..">
-		<table id="myTable">
-		  <tr class="header">
-		    <th style="width:30%;">Name</th>
-		    <th style="width:60%;">Current Bid</th>
-		  </tr>
+	<form class="searchBox" method="get" action="Search.jsp">
+		<div class="searchBox">
+		<% String search = request.getParameter("key"); 
+			if(search==null){
+				out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
+			}
+			
+			out.print("<input size=50 type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
+		%>
+		<input type="submit" value="Search" />
+	</div>
+	</form>
 		  <%
 		  	try {
-
+				
 				//Get the database connection
 				ApplicationDB db = new ApplicationDB();	
 				Connection con = db.getConnection();	
 				
 				//Create a SQL statement
 				Statement stmt = con.createStatement();
+				
 				//Get the combobox from the index.jsp
 				//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-				String str = "SELECT model FROM Test;";
+				String str = "SELECT model FROM Test WHERE model LIKE '%"+search+"%';";
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
-				
+				int len = 0;
 				while(result.next()){
+					len++;
 					String model = result.getString("model");
 					//String id = result.getString("id");
 					//String curBid = result.getString("curBid");
 					//String seller = result.getString("seller");
-					%>
-					<tr>
-						<td>
-						<% out.print("<a href=\"Details.jsp?id="+model+"\">"); %>
-						<% out.print(model); %>
-						</a>
-						</td>
-						<td>
-						<% out.print("<button>Place Bid</button>"); %>
-						</td>
-						<td>
-						<% out.print("Seller"); %>
-						</td>
-					<tr>
+					out.print("<a href=\"Details.jsp?id="+model+"\">"); 
+					out.print(model); %>
+					</a><br>
 				<%
+				}
+				if(len==0){
+					out.print("Make sure everything is typed correctly");
 				}
 				//close the connection.
 				result.close();
@@ -88,28 +88,5 @@
 			}	  
 		  %>
 		</table>
-	<script>
-		function myFunction() {
-		  // Declare variables
-		  var input, filter, table, tr, td, i, txtValue;
-		  input = document.getElementById("myInput");
-		  filter = input.value.toUpperCase();
-		  table = document.getElementById("myTable");
-		  tr = table.getElementsByTagName("tr");
-		
-		  // Loop through all table rows, and hide those who don't match the search query
-		  for (i = 0; i < tr.length; i++) {
-		    td = tr[i].getElementsByTagName("td")[0];
-		    if (td) {
-		      txtValue = td.textContent || td.innerText;
-		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		        tr[i].style.display = "";
-		      } else {
-		        tr[i].style.display = "none";
-		      }
-		    }
-		  }
-		}
-	</script>
 </body>
 </html>
