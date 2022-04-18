@@ -60,7 +60,7 @@
 			
 					//Create a SQL statement
 					Statement stmt = con.createStatement();
-					//Make an insert statement for the Sells table:
+					//Make an insert statement for the Account table:
 					String insert = "INSERT INTO Account(username, password)"
 							+ "VALUES (?, ?)";
 					

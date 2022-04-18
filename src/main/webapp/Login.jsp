@@ -26,6 +26,12 @@
       <label for="password">Password</label><br>
       <input type="text" id="password" name="login password"><br>
       <input type="submit" value="Sign In" />
+      <%
+      	String displayMessage = request.getParameter("displayMessage");
+    	if(displayMessage!=null){
+    		out.print("<h5>Username or password is incorrect</h5>");
+    	}
+      %>
       </form>
        
     </div>

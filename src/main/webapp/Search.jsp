@@ -57,11 +57,22 @@
 				Connection con = db.getConnection();	
 				
 				//Create a SQL statement
-				Statement stmt = con.createStatement();
+				//Second statement
+				Statement stmt2 = con.createStatement();
+				String str2 = "SELECT COUNT(*) FROM Test WHERE model LIKE '%"+search+"%';";
+				ResultSet result2 = stmt2.executeQuery(str2);
 				
-				//Get the combobox from the index.jsp
-				//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-				String str = "SELECT model FROM Test WHERE model LIKE '%"+search+"%';";
+				int pageLimit = 5;
+				int curPage = Integer.valueOf(request.getParameter("page"));
+				int startIndex = curPage * pageLimit;
+				if(result2.next()){
+					int numRows = Integer.valueOf(result2.getString("COUNT(*)"));
+				}
+				//close the connection.
+				result2.close();
+				stmt2.close();
+				Statement stmt = con.createStatement();
+				String str = "SELECT model FROM Test WHERE model LIKE '%"+search+"%' LIMIT "+startIndex+","+pageLimit+";";
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
 				int len = 0;
@@ -81,7 +92,7 @@
 				<%
 				}
 				if(len==0){
-					out.print("Make sure everything is typed correctly");
+					out.print("No matches found");
 				}
 				//close the connection.
 				result.close();
