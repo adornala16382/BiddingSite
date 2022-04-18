@@ -104,11 +104,11 @@
 				String page1 = request.getParameter("page");
 				int pagenumber = Integer.valueOf(page1);
 				if(pagenumber > 0){
-					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber-1)+"\">next</a></button>");
+					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber-1)+"\">previous</a></button>");
 				}
 				out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber)+"\">"+pagenumber+"</a></button>");
 				if(pagenumber < (int)((numRows-1)/pageLimit)){
-					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber+1)+"\">previous</a></button>");
+					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber+1)+"\">next</a></button>");
 				}
 			}catch (Exception ex) {
 				out.print(ex);
