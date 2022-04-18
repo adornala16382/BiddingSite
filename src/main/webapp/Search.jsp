@@ -66,8 +66,9 @@
 				int pageLimit = 5;
 				int curPage = Integer.valueOf(request.getParameter("page"));
 				int startIndex = curPage * pageLimit;
+				int numRows = 0;
 				if(result2.next()){
-					int numRows = Integer.valueOf(result2.getString("COUNT(*)"));
+					numRows = Integer.valueOf(result2.getString("COUNT(*)"));
 				}
 				//close the connection.
 				result2.close();
@@ -101,8 +102,14 @@
 				con.close();
 				String key = request.getParameter("key");
 				String page1 = request.getParameter("page");
-				int pagenumber = Integer.valueOf(page1)+1;
-				out.print("<button><a href=\"Search.jsp?key="+key+"&page="+pagenumber+"\">Next Page</a></button>");
+				int pagenumber = Integer.valueOf(page1);
+				if(pagenumber > 0){
+					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber-1)+"\">next</a></button>");
+				}
+				out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber)+"\">"+pagenumber+"</a></button>");
+				if(pagenumber < (int)((numRows-1)/pageLimit)){
+					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber+1)+"\">previous</a></button>");
+				}
 			}catch (Exception ex) {
 				out.print(ex);
 			}
