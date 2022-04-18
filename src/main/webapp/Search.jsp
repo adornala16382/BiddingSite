@@ -99,9 +99,13 @@
 				result.close();
 				stmt.close();
 				con.close();
+				String key = request.getParameter("key");
+				String page1 = request.getParameter("page");
+				int pagenumber = Integer.valueOf(page1)+1;
+				out.print("<button><a href=\"Search.jsp?key="+key+"&page="+pagenumber+"\">Next Page</a></button>");
 			}catch (Exception ex) {
 				out.print(ex);
-			}	  
+			}
 		  %>
 </body>
 </html>
