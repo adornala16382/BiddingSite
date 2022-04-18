@@ -24,7 +24,7 @@
         	}
 	        if(session.getAttribute("username")!=null){  
 				String username=(String)session.getAttribute("username");
-	        	out.print("<a>Welcome "+username+"</a>"); 
+	        	out.print("<a>Welcome "+username+"</a>");
 	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
 				%>
 				<a href="Profile.jsp">Profile</a>
@@ -47,6 +47,7 @@
 			out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
 		%>
 		<input class="searchButton" type="submit" value="Search" />
+		<input type="hidden" name="page" value="0" />
 	</form>
 	<div class="padding20"></div>
 		  <%

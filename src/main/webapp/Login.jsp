@@ -12,14 +12,18 @@
     <div class="sign_in">
     <% 
     	String prevPage = request.getParameter("prev");
-		String prevPath;
 		if(prevPage==null){
-			prevPath = "";
+			out.print("<form method=\"post\" action=\"LoginLogic.jsp?\">");
 		}
 		else{
-			prevPath = prevPage;
+			String pageNum = request.getParameter("page");
+			if(pageNum==null){
+				out.print("<form method=\"post\" action=\"LoginLogic.jsp?prev="+prevPage+"\" />");
+			}
+			else{
+				out.print("<form method=\"post\" action=\"LoginLogic.jsp?prev="+prevPage+"&page="+pageNum+"\" />");
+			}
 		}
-		out.print("<form method=\"post\" action=\"LoginLogic.jsp?prev="+prevPage+"\">");
 	%>
       <label for="username">Username:</label><br>
       <input type="text" id="username" name="login username"><br>

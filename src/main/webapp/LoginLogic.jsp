@@ -31,14 +31,21 @@
 			
 			if(result.next()){
 				String prevPage = request.getParameter("prev");
-				if(prevPage.equals("null")){
-					prevPage = "Home.jsp";
-					out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
-				}
 				if(result.getString("COUNT(*)").equals("1")==true){
 			        request.getSession();  
 			        session.setAttribute("username",username);
-					out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"\"' />");
+					if(prevPage==null){
+						out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
+					}
+					else{
+						String pageNum = request.getParameter("page");
+						if(pageNum==null){
+							out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"\"' />");
+						}
+						else{
+							out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"&page="+pageNum+"\"' />");
+						}
+					}
 				}
 				else{
 		        	String prevParam = request.getQueryString();
