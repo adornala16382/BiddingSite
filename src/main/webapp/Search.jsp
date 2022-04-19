@@ -93,23 +93,31 @@
 					</div>
 				<%
 				}
-				if(len==0){
-					out.print("No matches found");
-				}
 				//close the connection.
 				result.close();
 				stmt.close();
 				con.close();
-				String key = request.getParameter("key");
-				String page1 = request.getParameter("page");
-				int pagenumber = Integer.valueOf(page1);
-				if(pagenumber > 0){
-					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber-1)+"\">previous</a></button>");
+				if(len==0){
+					out.print("No matches found");
 				}
-				out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber)+"\">"+pagenumber+"</a></button>");
-				if(pagenumber < (int)((numRows-1)/pageLimit)){
-					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber+1)+"\">next</a></button>");
+				else{
+					%>
+					<div class="padding20"></div>
+					<%
+					String key = request.getParameter("key");
+					String page1 = request.getParameter("page");
+					int pagenumber = Integer.valueOf(page1);
+					if(pagenumber > 0){
+						out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber-1)+"\">previous</a></button>");
+					}
+					out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber)+"\">"+pagenumber+"</a></button>");
+					if(pagenumber < (int)((numRows-1)/pageLimit)){
+						out.print("<button><a href=\"Search.jsp?key="+key+"&page="+(pagenumber+1)+"\">next</a></button>");
+					}
 				}
+				%>
+				<div class="padding20"></div>
+				<%
 			}catch (Exception ex) {
 				out.print(ex);
 			}

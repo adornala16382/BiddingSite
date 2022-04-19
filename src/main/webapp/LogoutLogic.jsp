@@ -21,7 +21,6 @@
 		else{
 			out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"&page="+pageNum+"\"' />");
 		}
-		out.print(prevPage); 
 
 	%>
 </body>

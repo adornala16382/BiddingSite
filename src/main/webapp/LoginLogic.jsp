@@ -57,7 +57,6 @@
 		        		prevPath = "Login.jsp?"+prevParam;
 		        	}
 					out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPath+"&displayMessage=true\"' />");
-					out.print("Username or password is incorrect");
 				}
 			}
 			else{

@@ -6,6 +6,11 @@
 	<meta charset="ISO-8859-1">
 	<title>Sign In</title>
 	<link href="styles.css" rel="stylesheet">
+	<div class="topnav">
+		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
+		<div class="topnav-right">
+		</div>
+	</div>
 </head>
 <body>
     <h1>Sign in</h1>
