@@ -42,14 +42,8 @@
 			String password = request.getParameter("password");
 			String confirmPassword = request.getParameter("confirm password");
 			
-			if(username==""){
-				out.print("Must give username");
-			}
-			else if(password==""){
-				out.print("Must give password");
-			}
-			else if(password.equals(confirmPassword)==false){
-				out.print("Passwords don't match");
+			if(username=="" || password=="" || password.equals(confirmPassword)==false){
+				out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?missingDetails=True\"' />");
 			}
 			else{
 				try {
@@ -83,8 +77,9 @@
 					out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 					
 				} catch (Exception ex) {
-					out.print("Something went wrong");
+					out.print("Something went wrong: ");
 					out.print(ex);
+					out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?exist=True\"' />");
 				}
 			}
 	%>
