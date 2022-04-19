@@ -60,13 +60,13 @@
 				//Create a SQL statement
 				//Second statement
 				Statement stmt2 = con.createStatement();
-				String str2 = "SELECT COUNT(*) FROM Test WHERE model LIKE '%"+search+"%';";
+				String str2 = "SELECT COUNT(*) FROM Item WHERE make LIKE '%"+search+"%';";
 				ResultSet result2 = stmt2.executeQuery(str2);
 				
 				int pageLimit = 5;
 				int curPage = Integer.valueOf(request.getParameter("page"));
 				int startIndex = curPage * pageLimit;
-				int numRows = 0;
+				int numRows=0;
 				if(result2.next()){
 					numRows = Integer.valueOf(result2.getString("COUNT(*)"));
 				}
@@ -74,24 +74,41 @@
 				result2.close();
 				stmt2.close();
 				Statement stmt = con.createStatement();
-				String str = "SELECT model FROM Test WHERE model LIKE '%"+search+"%' LIMIT "+startIndex+","+pageLimit+";";
+				String str = "SELECT * FROM Item WHERE make LIKE '%"+search+"%' LIMIT "+startIndex+","+pageLimit+";";
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
 				int len = 0;
 				while(result.next()){
 					len++;
+					String make = result.getString("make");
 					String model = result.getString("model");
-					//String id = result.getString("id");
-					//String curBid = result.getString("curBid");
-					//String seller = result.getString("seller");
-					%>
+					String car_type = result.getString("car_type");
+					String color = result.getString("color");
+					String car_year = result.getString("car_year");
+					String item_id = result.getString("item_id");
+			%>
 					<div class="itemBox">
+					
+					<div class="items">
+					
+					<ul>
+					
 					<%
-						out.print("<a href=\"Details.jsp?id="+model+"\">"); 
-						out.print(model); %>
-						</a>
+				
+						out.print("<li><a href=\"Details.jsp?id="+make+"\">"); 
+						out.print(make);
+						out.print("</a></li>");
+						out.print("<li>"+model+"</li>");
+						out.print("<li>"+car_type+"</li>");
+						out.print("<li>"+color+"</li>");
+						out.print("<li>"+car_year+"</li>");
+					%>
+					
+					</ul>
+					</div>
 					</div>
 				<%
+				
 				}
 				//close the connection.
 				result.close();

@@ -11,8 +11,13 @@
 	<link href="styles.css" rel="stylesheet">
 	<div class="topnav">
 		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
+		<% if(session.getAttribute("username")!=null){  
+			String username=(String)session.getAttribute("username");
+        	out.print("<a>Welcome "+username+"</a>"); 
+		}
+		%>
 		<div class="topnav-right">
-			<% 	
+			<%
 			String prevURI = request.getRequestURI();
         	String prevParam = request.getQueryString();
         	String prevPath;
@@ -23,8 +28,7 @@
         		prevPath = prevURI+"?"+prevParam;
         	}
 	        if(session.getAttribute("username")!=null){  
-				String username=(String)session.getAttribute("username");
-	        	out.print("<a>Welcome "+username+"</a>"); 
+	        	out.print("<a href=\"Sellitem.jsp?prev="+prevPath+"\">Sell Car</a>");
 	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
 				%>
 				<a href="Profile.jsp">Profile</a>
@@ -38,7 +42,7 @@
 </head>
 <body>
 	<br>
-	<form method="get" action="Search.jsp?">
+	<form class="search" method="get" action="Search.jsp?">
 			<input class="searchBar" type="text" name="key" placeholder="Search for items..">
 			<input class="searchButton" type="submit" value="Search" />
 			<input type="hidden" name="page" value="0" />
