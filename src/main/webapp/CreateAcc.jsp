@@ -30,7 +30,7 @@
 				<a href="Profile.jsp">Profile</a>
 	        <%}  
 	        else{
-	        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
+	        	out.print("<a href=\"Login.jsp\">Sign In</a>");
 	        }  
 			%>
 		</div>
@@ -43,9 +43,9 @@
 	    <label >Username:</label> <br>
 	    <input type="text" id="username" name="username"><br>
 	    <label >Password</label><br>
-	    <input type="text" id="password" name="password"> <br>
+	    <input type="password" id="password" name="password"> <br>
 	    <label >Confirm Password</label><br>
-	    <input type="text" id="confirm password" name="confirm password"> <br>
+	    <input type="password" id="confirm password" name="confirm password"> <br>
       <%
       	String displayMessage1 = request.getParameter("missingDetails");
       	String displayMessage2 = request.getParameter("exist");

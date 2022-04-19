@@ -33,7 +33,7 @@
       <label for="username">Username:</label><br>
       <input type="text" id="username" name="login username"><br>
       <label for="password">Password</label><br>
-      <input type="text" id="password" name="login password"><br>
+      <input type="password" id="password" name="login password"><br>
       <input type="submit" value="Sign In" />
       <%
       	String displayMessage = request.getParameter("displayMessage");
