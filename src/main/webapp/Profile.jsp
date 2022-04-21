@@ -31,6 +31,7 @@
 		        <%}  
 		        else{
 		        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
+		        	out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 		        }    
 			%>
 		</div>
@@ -41,6 +42,10 @@
 	    if(session.getAttribute("username")!=null){  
 	        String username=(String)session.getAttribute("username");
 	        out.print("<h3>Username: "+username+"</h3>");
+	        String type = (String)session.getAttribute("type");
+	        if(type!=null){
+	        	out.print("<h4>Account type: "+type+"</h4>");
+	        }
 	      %>
             <!-- Trigger/Open The Modal -->
             <button id="myBtn">Delete Account</button>

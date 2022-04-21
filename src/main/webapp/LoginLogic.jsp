@@ -28,12 +28,40 @@
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 			
-			
 			if(result.next()){
 				String prevPage = request.getParameter("prev");
 				if(result.getString("COUNT(*)").equals("1")==true){
+					String type = "Regular";
 			        request.getSession();  
 			        session.setAttribute("username",username);
+					result.close();
+					stmt.close();
+					
+					Statement stmt3 = con.createStatement();
+					String str3 = "SELECT COUNT(*) FROM CustomerRep WHERE username='"+username+"';";
+					ResultSet result3 = stmt3.executeQuery(str3);
+					if(result3.next()){
+						if(result3.getString("COUNT(*)").equals("1")==true){
+							type = "Customer Representative";
+						}
+					}
+					result3.close();
+					stmt3.close();
+					
+					Statement stmt2 = con.createStatement();
+					String str2 = "SELECT COUNT(*) FROM Admin WHERE username='"+username+"';";
+					ResultSet result2 = stmt2.executeQuery(str2);
+					
+					if(result2.next()){
+						if(result2.getString("COUNT(*)").equals("1")==true){
+							type = "Admin";
+						}
+					}
+					result2.close();
+					stmt2.close();
+					
+					session.setAttribute("type",type);
+					
 					if(prevPage==null){
 						out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 					}
@@ -64,8 +92,6 @@
 			}
 
 			//close the connection.
-			result.close();
-			stmt.close();
 			con.close();
 			
 		} catch (Exception ex) {
