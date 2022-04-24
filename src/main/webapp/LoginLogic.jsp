@@ -38,27 +38,20 @@
 					stmt.close();
 					
 					Statement stmt3 = con.createStatement();
-					String str3 = "SELECT COUNT(*) FROM CustomerRep WHERE username='"+username+"';";
+					String str3 = "SELECT type FROM Account WHERE username='"+username+"';";
 					ResultSet result3 = stmt3.executeQuery(str3);
 					if(result3.next()){
-						if(result3.getString("COUNT(*)").equals("1")==true){
-							type = "Customer Representative";
+						if(result3.getString("type")!=null){
+							if(result3.getString("type").equals("CustomerRep")==true){
+								type = "Customer Representative";
+							}
+							else if(result3.getString("type").equals("Admin")==true){
+								type = "Admin";
+							}
 						}
 					}
 					result3.close();
 					stmt3.close();
-					
-					Statement stmt2 = con.createStatement();
-					String str2 = "SELECT COUNT(*) FROM Admin WHERE username='"+username+"';";
-					ResultSet result2 = stmt2.executeQuery(str2);
-					
-					if(result2.next()){
-						if(result2.getString("COUNT(*)").equals("1")==true){
-							type = "Admin";
-						}
-					}
-					result2.close();
-					stmt2.close();
 					
 					session.setAttribute("type",type);
 					

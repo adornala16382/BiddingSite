@@ -68,6 +68,7 @@
 					ps.executeUpdate();
 			
 					//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
+					ps.close();
 					stmt.close();
 					con.close();
 					

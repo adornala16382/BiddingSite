@@ -85,7 +85,7 @@
 					String car_type = result.getString("car_type");
 					String color = result.getString("color");
 					String car_year = result.getString("car_year");
-					String item_id = result.getString("item_id");
+					String vin = result.getString("vin");
 			%>
 					<div class="itemBox">
 					
