@@ -44,10 +44,8 @@
       </form>
        
     </div>
-
   
     <p>Not Registered? <a href="CreateAcc.jsp">Create Account</a></p>
-    </form>
     
 </body>
 </html>

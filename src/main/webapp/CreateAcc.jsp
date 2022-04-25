@@ -25,7 +25,7 @@
 	        if(session.getAttribute("username")!=null){  
 				String username=(String)session.getAttribute("username");
 	        	out.print("<a>Welcome "+username+"</a>"); 
-	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
+	        	out.print("<a href=\"LogoutLogic.jsp\">Sign Out</a>");
 				%>
 				<a href="Profile.jsp">Profile</a>
 	        <%}  
@@ -37,25 +37,40 @@
 	</div>
 </head>
 <body>
-
-    <h1>Create New Account</h1>
-    <form method="post" action="createAccLogic.jsp">
+	<%
+	String customerRep = request.getParameter("CustomerRep");
+	String type = (String)session.getAttribute("type");
+	if(customerRep!=null && type!=null && type.equals("Admin")){
+		out.print("<h1>Create New Customer Representative Account</h1>");
+		out.print("<form method=\"post\" action=\"createAccLogic.jsp\">");
+		out.print("<input type=\"hidden\" name=\"CustomerRep\" value=\"True\" />");
+	}
+	else{
+		out.print("<h1>Create New Account</h1>");
+		out.print("<form method=\"post\" action=\"createAccLogic.jsp\">");
+	}
+	%>
 	    <label >Username:</label> <br>
 	    <input type="text" id="username" name="username"><br>
 	    <label >Password</label><br>
 	    <input type="password" id="password" name="password"> <br>
 	    <label >Confirm Password</label><br>
-	    <input type="password" id="confirm password" name="confirm password"> <br>
+	    <input type="password" id="confirm password" name="confirm password"> 
       <%
       	String displayMessage1 = request.getParameter("missingDetails");
       	String displayMessage2 = request.getParameter("exist");
+      	String displayMessage3 = request.getParameter("success");
     	if(displayMessage1!=null){
     		out.print("<h5>Make sure everything is typed correctly</h5>");
     	}
     	else if(displayMessage2!=null){
     		out.print("<h5>Account already exists</h5>");
     	}
+    	else if(displayMessage3!=null){
+    		out.print("<h5>Account Created Successfully!</h5>");
+    	}
       %>
+      	<br>
 	    <input type="submit" value="Create Account" />
     </form>
 </body>

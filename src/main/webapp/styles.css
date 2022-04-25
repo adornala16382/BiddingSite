@@ -9,9 +9,32 @@ body{
   vertical-align: middle;
 }
 
+button, input[type="button"], input[type="submit"] {
+	background-color: #004080;
+	color: white;
+	border-radius: 12px;
+	padding: 5px 10px 5px 10px;
+}
+button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+	background-color: white;
+	color: black;
+}
+.pageNum{
+	background-color:#004080;
+	color: white;
+	padding: 10px;
+	outline: 2px solid black;
+}
+.pageNum:hover{
+	background-color: white;
+	color: black;
+}
+
 input {
    margin-bottom: 10px;
    font: 13px Arial, Helvetica, sans-serif;
+   border-radius: 8px;
+   padding: 5px 10px 5px 10px;
  } 
 .padding20{
 	margin-bottom: 20px;

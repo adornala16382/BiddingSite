@@ -45,6 +45,11 @@
 	        String type = (String)session.getAttribute("type");
 	        if(type!=null){
 	        	out.print("<h4>Account type: "+type+"</h4>");
+	        	if(type.equals("Admin")){
+	        		out.print("<form method=\"post\" action=\"CreateAcc.jsp\" />");
+	        		out.print("<input class=\"searchButton\" type=\"submit\" value=\"Create Customer Representative\" />");
+	        		out.print("<input type=\"hidden\" name=\"CustomerRep\" value=\"True\" /></form>");
+	        	}
 	        }
 	      %>
             <!-- Trigger/Open The Modal -->
@@ -57,7 +62,9 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h3>Are you sure you want to delete your account?</h3>
-                    <button><a href="DeleteAcc.jsp">Confirm</a></button>
+                	<form method="post" action="DeleteAcc.jsp">
+                    	<input type="submit" value="Confirm" />
+					</form>
                 </div>
             </div>
             <script>

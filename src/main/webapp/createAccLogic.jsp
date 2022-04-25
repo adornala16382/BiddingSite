@@ -40,10 +40,16 @@
 	<%
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
+			String customerRep = request.getParameter("CustomerRep");
 			String confirmPassword = request.getParameter("confirm password");
 			
 			if(username=="" || password=="" || password.equals(confirmPassword)==false){
-				out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?missingDetails=True\"' />");
+				if(customerRep!=null){
+					out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?CustomerRep=True&missingDetails=True\"' />");
+				}
+				else{
+					out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?missingDetails=True\"' />");
+				}
 			}
 			else{
 				try {
@@ -55,8 +61,15 @@
 					//Create a SQL statement
 					Statement stmt = con.createStatement();
 					//Make an insert statement for the Account table:
-					String insert = "INSERT INTO Account(username, password)"
-							+ "VALUES (?, ?)";
+					String insert = "";
+					if(customerRep!=null){
+						insert = "INSERT INTO Account(username, password, type)"
+								+ "VALUES (?, ?, ?)";
+					}
+					else{
+						insert = "INSERT INTO Account(username, password)"
+								+ "VALUES (?, ?)";
+					}
 					
 					//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 					PreparedStatement ps = con.prepareStatement(insert);
@@ -64,6 +77,9 @@
 					//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
 					ps.setString(1, username);
 					ps.setString(2, password);
+					if(customerRep!=null){
+						ps.setString(3, "CustomerRep");
+					}
 					//Run the query against the DB
 					ps.executeUpdate();
 			
@@ -71,16 +87,25 @@
 					ps.close();
 					stmt.close();
 					con.close();
-					
-			        request.getSession();  
-			        session.setAttribute("username",username);
+					if(customerRep!=null){
+						out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?success=True&CustomerRep=True\"' />");
+					}
+					else{
+				        request.getSession();  
+				        session.setAttribute("username",username);	
+						out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
+					}
 			        
-					out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 					
 				} catch (Exception ex) {
 					out.print("Something went wrong: ");
 					out.print(ex);
-					out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?exist=True\"' />");
+					if(customerRep!=null){
+						out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?exist=True&CustomerRep=True\"' />");
+					}
+					else{
+						out.print("<meta http-equiv='Refresh' content='0; url=\"CreateAcc.jsp?exist=True\"' />");
+					}
 				}
 			}
 	%>
