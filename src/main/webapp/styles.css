@@ -1,5 +1,7 @@
 @charset "ISO-8859-1";
-
+html *{
+	font-family: Georgia, serif;
+}
 body{
   margin-top:0;
   margin-left:0;
@@ -9,32 +11,9 @@ body{
   vertical-align: middle;
 }
 
-button, input[type="button"], input[type="submit"] {
-	background-color: #004080;
-	color: white;
-	border-radius: 12px;
-	padding: 5px 10px 5px 10px;
-}
-button:hover, input[type="button"]:hover, input[type="submit"]:hover {
-	background-color: white;
-	color: black;
-}
-.pageNum{
-	background-color:#004080;
-	color: white;
-	padding: 10px;
-	outline: 2px solid black;
-}
-.pageNum:hover{
-	background-color: white;
-	color: black;
-}
-
 input {
    margin-bottom: 10px;
    font: 13px Arial, Helvetica, sans-serif;
-   border-radius: 8px;
-   padding: 5px 10px 5px 10px;
  } 
 .padding20{
 	margin-bottom: 20px;
@@ -116,11 +95,13 @@ color: black;
 }
 
 .itemBox{
+	border-color:#FAF5E4;
+	border-radius: 25px;
 	margin-left:100px;
 	margin-right:100px;
-	padding: 20px 50px 100px 50px;
-	text-align:left;
-	border: 2px solid black;
+	padding: 20px 50px 50px 50px;
+	text-align:center;
+	border: 2px solid #005555;
 }
 
 .detailBox{
@@ -131,6 +112,7 @@ color: black;
 	border: 2px solid black;
 }
 .searchBar{
+	border-radius: 25px;
 	height: 30px;
 	width: 60%;
 	font-size: 16px;
@@ -140,10 +122,89 @@ color: black;
 	margin-left: -5px;
 }
 .items li{
+	
 	color:white;
 	display:inline;
-	padding: 16px;
+	padding: 40px;
+	margin-bottom:0px;
+	margin-left:30px;
+	
 }
+.items th{
+	
+	color:#F8B400;
+	font-weight: bolder;
+	text-align:right;
+	padding:0px 30px 20px 70px;
+	margin-top:10px;
+	
+}
+.items hr{
+	
+ 	display: block; height: 1px;
+    border: 0; 
+    border-top: 1px solid #141E27;
+	margin-bottom:10px;
+}
+.headers{
+	margin-left:40px;
+	text-algin:center;
+	border:none;
+}
+
 .search{
 	margin-top:100px;
 }
+.searchButton{
+	border-radius:25px;
+	font-weight: bold;
+	background-color:#F8B400;
+	margin-left:10px;
+	height:35px;
+	width:100px;
+}
+.iteminputs input{
+	border-radius:25px;
+	text-align:center;
+	width:200px;
+	height:30px;
+	margin-bottom:20px;
+	margin-top:10px;
+	color:#F8B400;
+	
+}
+.iteminputs label{
+	margin-bottom:20px;
+}
+.bidbutton{
+	
+	margin-top:50px;
+	margin-bottom:0;
+	
+}
+.bb{
+ padding: 1.3em 3em;
+ font-size: 12px;
+ text-transform: uppercase;
+ letter-spacing: 2.5px;
+ font-weight: 500;
+ color: #000;
+ background-color: #fff;
+ border: none;
+ border-radius: 45px;
+ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+ transition: all 0.3s ease 0s;
+ cursor: pointer;
+ outline: none;
+}
+.bb:hover {
+ background-color: #F8B400;
+ box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+ color: #fff;
+ transform: translateY(-7px);
+}
+
+.bb:active {
+ transform: translateY(-1px);
+}
+
