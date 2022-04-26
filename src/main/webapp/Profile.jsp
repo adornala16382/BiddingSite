@@ -47,7 +47,7 @@
 	        	out.print("<h4>Account type: "+type+"</h4>");
 	        	if(type.equals("Admin")){
 	        		out.print("<form method=\"post\" action=\"CreateAcc.jsp\" />");
-	        		out.print("<input class=\"searchButton\" type=\"submit\" value=\"Create Customer Representative\" />");
+	        		out.print("<input type=\"submit\" value=\"Create Customer Representative\" />");
 	        		out.print("<input type=\"hidden\" name=\"CustomerRep\" value=\"True\" /></form>");
 	        	}
 	        }

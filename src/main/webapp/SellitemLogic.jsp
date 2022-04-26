@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page import="java.time.LocalDateTime"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,7 +12,7 @@
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
-	<% 
+	<%  
 		try {
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
@@ -24,12 +25,12 @@
 			String Car_model = request.getParameter("Car Model");
 			String Car_make = request.getParameter("Car Make");
 			String Car_color = request.getParameter("Car Color");
-			String Car_year = request.getParameter("Car Year");
+			int Car_year = Integer.parseInt(request.getParameter("Car Year"));
 			String Car_type = request.getParameter("Car Type");
 			String vin = request.getParameter("Car Vin");
-			String Start_Bid = request.getParameter("Starting Bid");
-			String Low_bound = request.getParameter("Lower Increment Bound");
-			String Secret_min = request.getParameter("Secret Min");
+			int Start_Bid = Integer.parseInt(request.getParameter("Starting Bid"));
+			int Low_bound = Integer.parseInt(request.getParameter("Lower Increment Bound"));
+			int Secret_min = Integer.parseInt(request.getParameter("Secret Min"));
 			String Close_date = request.getParameter("Close Date");
 
 			
@@ -75,15 +76,15 @@
 			ps.setString(2, Car_make);
 			ps.setString(3, Car_type);
 			ps.setString(4, Car_color);
-			ps.setString(5, Car_year);
+			ps.setInt(5, Car_year);
 			ps.setString(6, vin);
 			ps.executeUpdate();
 			
 			pst.setString(1, username);
 			pst.setString(2, vin);
-			pst.setString(3, Start_Bid);
-			pst.setString(4, Low_bound);
-			pst.setString(5, Secret_min);
+			pst.setInt(3, Start_Bid);
+			pst.setInt(4, Low_bound);
+			pst.setInt(5, Secret_min);
 			pst.setString(6, Close_date);
 			pst.executeUpdate();
 			

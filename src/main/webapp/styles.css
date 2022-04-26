@@ -13,8 +13,9 @@ body{
 
 input {
    margin-bottom: 10px;
-   font: 13px Arial, Helvetica, sans-serif;
- } 
+   border-radius: 8px;
+   padding: 5px 10px 5px 10px;
+ }
 .padding20{
 	margin-bottom: 20px;
 }
@@ -111,16 +112,24 @@ color: black;
 	text-align:center;
 	border: 2px solid black;
 }
+.search{
+	margin-top:100px;
+}
+.searchButton{
+	font-weight: bold;
+	background-color:#F8B400;
+	margin-left:-30px;
+	height:45px;
+	width:100px;
+	background-color:#004080 ;
+}
 .searchBar{
-	border-radius: 25px;
+	border-radius: 10px;
 	height: 30px;
 	width: 60%;
 	font-size: 16px;
 }
-.searchButton{
-	height: 37px;
-	margin-left: -5px;
-}
+
 .items li{
 	
 	color:white;
@@ -152,17 +161,6 @@ color: black;
 	border:none;
 }
 
-.search{
-	margin-top:100px;
-}
-.searchButton{
-	border-radius:25px;
-	font-weight: bold;
-	background-color:#F8B400;
-	margin-left:10px;
-	height:35px;
-	width:100px;
-}
 .iteminputs input{
 	border-radius:25px;
 	text-align:center;
@@ -170,7 +168,7 @@ color: black;
 	height:30px;
 	margin-bottom:20px;
 	margin-top:10px;
-	color:#F8B400;
+	color:#000000;
 	
 }
 .iteminputs label{
@@ -206,5 +204,16 @@ color: black;
 
 .bb:active {
  transform: translateY(-1px);
+}
+
+.pageNum{
+	background-color:#004080;
+	color: white;
+	padding: 10px;
+	outline: 2px solid black;
+}
+.pageNum:hover{
+	background-color: white;
+	color: black;
 }
 

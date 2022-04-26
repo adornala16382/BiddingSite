@@ -49,19 +49,19 @@
   <label for="Car_Type">Car Type:</label><br>
   <input type="text" id="Car_type" name="Car Type"><br>
   <label for="Car_Year">Car Year:</label><br>
-  <input type="text" id="Car_Year" name="Car Year"><br>
+  <input type="number" id="Car_Year" name="Car Year"><br>
   <label for="Car_Color">Car Color:</label><br>
   <input type="text" id="Car_Color" name="Car Color"><br>
   <label for="Vin">Car Vin:</label><br>
   <input type="text" id="Vin" name="Car Vin"><br>
   <label for="Close_date">Close Date:</label><br>
-  <input type="text" id="Close_date" name="Close Date"><br>
+  <input type="datetime-local" id="Close_date" name="Close Date"><br>
   <label for="Start_Bid">Starting Bid:</label><br>
-  <input type="text" id="Start_Bid" name="Starting Bid"><br>
+  <input type="number" id="Start_Bid" name="Starting Bid"><br>
    <label for="Lower_Increment">Lower Increment Bound:</label><br>
-  <input type="text" id="Lower_Increment" name="Lower Increment Bound"><br>
+  <input type="number" id="Lower_Increment" name="Lower Increment Bound"><br>
   <label for="Start_Min">Secret Min:</label><br>
-  <input type="text" id="Start_Min" name="Secret Min"><br>
+  <input type="number" id="Start_Min" name="Secret Min"><br>
   <input type="submit" value="Sell Item" />
 </form>
 
