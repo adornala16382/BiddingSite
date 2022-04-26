@@ -95,7 +95,7 @@
 					
 					<%
 				
-						out.print("<li><a href=\"Details.jsp?id="+make+"\">"); 
+						out.print("<li><a href=\"Details.jsp?id="+vin+"\">"); 
 						out.print(make);
 						out.print("</a></li>");
 						out.print("<li>"+model+"</li>");
