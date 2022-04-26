@@ -9,12 +9,39 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>SellItem</title>
 	<link href="styles.css" rel="stylesheet">
-	<h1>Hello this is a test if the page works</h1>
+	<div class="topnav">
+		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
+		<div class="topnav-right">
+			<% 	
+			String prevURI = request.getRequestURI();
+        	String prevParam = request.getQueryString();
+        	String prevPath;
+        	if(prevParam==null){
+        		prevPath = prevURI;
+        	}
+        	else{
+        		prevPath = prevURI+"?"+prevParam;
+        	}
+	        if(session.getAttribute("username")!=null){  
+				String username=(String)session.getAttribute("username");
+	        	out.print("<a>Welcome "+username+"</a>");
+	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
+				%>
+				<a href="Profile.jsp">Profile</a>
+	        <%}  
+	        else{
+	        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
+	        }  
+			%>
+		</div>
+	</div>
 
 </head>
 <body>
+<br>
+<h1>Enter Item Information To Sell</h1>
 
-<form>
+<form class= "iteminputs" action="SellitemLogic.jsp">
   <label for="Car_Make">Car Make:</label><br>
   <input type="text" id="Car_make" name="Car Make"><br>
   <label for="Car_Model">Car Model:</label><br>
@@ -25,6 +52,8 @@
   <input type="text" id="Car_Year" name="Car Year"><br>
   <label for="Car_Color">Car Color:</label><br>
   <input type="text" id="Car_Color" name="Car Color"><br>
+  <label for="Vin">Car Vin:</label><br>
+  <input type="text" id="Vin" name="Car Vin"><br>
   <label for="Close_date">Close Date:</label><br>
   <input type="text" id="Close_date" name="Close Date"><br>
   <label for="Start_Bid">Starting Bid:</label><br>
@@ -35,6 +64,7 @@
   <input type="text" id="Start_Min" name="Secret Min"><br>
   <input type="submit" value="Sell Item" />
 </form>
+
 
 </body>
 </html> 

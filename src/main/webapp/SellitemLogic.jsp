@@ -20,47 +20,91 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			//Get the combobox from the index.jsp
-			String Car_make = request.getParameter("Car Make");
+			String username= (String)session.getAttribute("username");
 			String Car_model = request.getParameter("Car Model");
+			String Car_make = request.getParameter("Car Make");
 			String Car_color = request.getParameter("Car Color");
 			String Car_year = request.getParameter("Car Year");
+			String Car_type = request.getParameter("Car Type");
+			String vin = request.getParameter("Car Vin");
+			String Start_Bid = request.getParameter("Starting Bid");
+			String Low_bound = request.getParameter("Lower Increment Bound");
+			String Secret_min = request.getParameter("Secret Min");
+			String Close_date = request.getParameter("Close Date");
+
+			
+			String item_str = "INSERT INTO Item(model,make,car_type,color,car_year,vin) VALUES(?,?,?,?,?,?);";
+			String auction_str = "INSERT INTO Auction(seller_name,vin,intital_bidding_price,lbound_increment,secret_min,close_date) VALUES(?,?,?,?,?,?);";
+			String Seller_str = "INSERT INTO Seller(seller_username) VALUES(?);";
+			String Sells_str = "INSERT INTO Sells(seller_username,vin) VALUES(?,?);";
+			String check_seller ="SELECT COUNT(*) FROM Seller WHERE(seller_username= '"+username+"')";
+			String check_item_sold ="SELECT COUNT(*) FROM Sells WHERE(seller_username= '"+username+"' AND vin = '"+vin+"')";
+
+
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-			//String str = "SELECT COUNT(*) FROM Account WHERE username='"+username+"' AND password='"+password+"'";
-			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
+		
+		
 			
-			
-			if(result.next()){
-				String prevPage = request.getParameter("prev");
-				if(prevPage.equals("null")){
-					prevPage = "Home.jsp";
-					out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
-				}
-				if(result.getString("COUNT(*)").equals("1")==true){
-			        request.getSession();  
-			        session.setAttribute("username",username);
-					out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"\"' />");
-				}
-				else{
-		        	String prevParam = request.getQueryString();
-		        	String prevPath;
-		        	if(prevParam==null){
-		        		prevPath = "";
-		        	}
-		        	else{
-		        		prevPath = "Login.jsp?"+prevParam;
-		        	}
-					out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPath+"&displayMessage=true\"' />");
-					out.print("Username or password is incorrect");
-				}
+			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+			PreparedStatement ps = con.prepareStatement(item_str);
+			PreparedStatement pst = con.prepareStatement(auction_str);
+			PreparedStatement psst = con.prepareStatement(Seller_str);
+			PreparedStatement psells = con.prepareStatement(Sells_str);
+
+			//result.getString("COUNT(*)").equals("1")==true
+			Statement s = con.createStatement();
+			ResultSet result = s.executeQuery(check_seller);
+			result.next();
+			//result = stmt.executeQuery(check_item_sold);
+			int numRows = result.getInt("COUNT(*)") ;
+			if(numRows<1){
+				psst.setString(1, username);
+				psst.executeUpdate();
 			}
-			else{
-				out.print("Something went wrong");
-			}
-			//close the connection.
 			result.close();
+			result = s.executeQuery(check_item_sold);
+			psst.close();
+
+			
+			
+			
+	
+	
+			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
+			ps.setString(1, Car_model);
+			ps.setString(2, Car_make);
+			ps.setString(3, Car_type);
+			ps.setString(4, Car_color);
+			ps.setString(5, Car_year);
+			ps.setString(6, vin);
+			ps.executeUpdate();
+			
+			pst.setString(1, username);
+			pst.setString(2, vin);
+			pst.setString(3, Start_Bid);
+			pst.setString(4, Low_bound);
+			pst.setString(5, Secret_min);
+			pst.setString(6, Close_date);
+			pst.executeUpdate();
+			
+			if(numRows<1){
+				psells.setString(1, username);
+				psells.setString(2, vin);
+				psells.executeUpdate();
+			}
+
+			result.close();
+			psells.close();
+			
+			
+			//close the connection
+			ps.close();
+			pst.close();
+		
 			stmt.close();
+			s.close();
 			con.close();
+			out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 			
 		} catch (Exception ex) {
 			out.print(ex);

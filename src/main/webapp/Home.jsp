@@ -43,7 +43,7 @@
 <body>
 	<br>
 	<form class="search" method="get" action="Search.jsp?">
-			<input class="searchBar" type="text" name="key" placeholder="Search for items..">
+			<input class="searchBar" type="text" name="key" placeholder="  Search for items..">
 			<input class="searchButton" type="submit" value="Search" />
 			<input type="hidden" name="page" value="0" />
 			
