@@ -57,7 +57,6 @@
 	<div class="padding20"></div>
 		  <%
 		  	try {
-				
 				//Get the database connection
 				ApplicationDB db = new ApplicationDB();	
 				Connection con = db.getConnection();	
@@ -69,6 +68,7 @@
 				ResultSet result2 = stmt2.executeQuery(str2);
 				
 				int pageLimit = 5;
+				int numVehicles=0;
 				int curPage = Integer.valueOf(request.getParameter("page"));
 				int startIndex = curPage * pageLimit;
 				int numRows=0;
@@ -79,55 +79,48 @@
 				result2.close();
 				stmt2.close();
 				Statement stmt = con.createStatement();
+				Statement stmt3 = con.createStatement();
 				String str = "SELECT * FROM Auction LEFT JOIN Item ON Auction.vin = Item.vin WHERE make LIKE '%"+search+"%' LIMIT "+startIndex+","+pageLimit+";";
-				
-				//Search Auction Table
-
-				
-				
-				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
-				int len = 0;
 				
-				
+				int i = 0;
+				%>
+				<script>
+					var modalArray = [];
+					var buttonArray = [];
+					var spanArray = [];
+				</script>
+				<%
 				while(result.next()){
-					len++;
 					String make = result.getString("make");
 					String model = result.getString("model");
 					String car_type = result.getString("car_type");
 					String color = result.getString("color");
 					String car_year = result.getString("car_year");
 					String vin = result.getString("vin");
-					String inital_bid = "$"+ result.getString("intital_bidding_price");
-					Timestamp close_date = result.getTimestamp("close_date");
-
+					String inital_bid = "$"+ result.getString("initial_bidding_price");
+					String close_date = result.getString("close_date");
 					
-
+					
 			%>
-					<div class="itemBox">
-					
+					<div class="itemBox" id=<% out.print(vin); %>>
 					<div class="items">
 					<div class = "headers">
 					<table>
 					  	<tr>
-					    <th>Vin</th>
-					    <th>Make</th>
-					    <th>Model</th>
-					    <th>Car Type</th>
-					    <th>Color</th>
-					    <th>Car Year</th>	  
-					    <th>Initial Bid</th>
-					    <th>Close Date</th>
+						    <th>Vin</th>
+						    <th>Make</th>
+						    <th>Model</th>
+						    <th>Car Type</th>
+						    <th>Color</th>
+						    <th>Car Year</th>	  
+						    <th>Initial Bid</th>
+						    <th>Close Date</th>
 					  	</tr>
-						</table>
-					
-					</div>
-						
+					</table>
+					</div>	
 					<ul>
-					
 					<%
-						
-						
 						out.print("<hr>");
 					    out.print("<li><a href=\"Details.jsp?id="+vin+"\">"+vin+"</a></li>"); 
 						out.print("<li>"+make+"</li>");
@@ -136,28 +129,62 @@
 						out.print("<li>"+color+"</li>");
 						out.print("<li>"+car_year+"</li>");
 						out.print("<li>"+inital_bid+"</li>");
-						out.print("<li>"+close_date.toString()+"</li>");
+						out.print("<li>"+close_date+"</li>");
 						out.print("<hr>");
-
 					%>
-					
-					</ul>
-					
-					</div>
-					<form class= "bidbutton" action="Bids.jsp">
-					<button class ="bb">Bid For Item</button>
-					</form>
-					</div>
-					
-					
+						</ul>
+						
+						<button  class ="bb" id=<% out.print("Button"+vin); %>>Bid For Item</button>
+						<div class="modal" id=<% out.print("Modal"+vin); %>>
+	             <!-- Modal content -->
+			             <div class="modal-content">
+			                 <span class="close" id=<% out.print("Close"+vin); %>>&times;</span>
+			                 <h3>Place Bid For Item</h3>
+   
+			             	<form class = "modalq" id=<% out.print("Form"+vin); %> method="post" action= Bidlogic.jsp >
+			             		<input type="checkbox" id = "Auto_bid" name="AB" value="True" >Automatic Bidding<br>
+			             		<label for="bidPrice">Bid Price:</label><br>   						
+			             		<input type="number" id="bidPrice" name="bidPrice" size="75" maxLength="150" placeholder="Bid Price"/><br>
+			             		<label for="increment">Increment:</label><br>
+			             		<input type="number" id="increment" name="Increment" size="75" maxLength="150" placeholder="Price Increment "/><br>
+			             		<label for="upperLimit">Max:</label><br>
+			             		<input type="number" id="upperLimit" name="upper_limit" size="75" maxLength="150" placeholder="Max Amount For Item"/><br>
+			             		<input type="hidden" name="vin" value=<% out.print(vin); %> />
+			             		<input type="hidden" name="prev" value="<% out.print(prevPath); %>"/>
+			                 	<input id = "bidsubmit" type="submit" value="Place Bid"/>
+							</form>						
+			            </div>
+			         	</div>
+							<script>
+								modalArray.push(document.getElementById("Modal"+<%out.print(vin);%>));
+								// Get the button that opens the modal
+								buttonArray.push(document.getElementById("Button"+<%out.print(vin);%>));
+								spanArray.push(document.getElementById("Close"+<%out.print(vin);%>));
+								
+								buttonArray[parseInt(<% out.print(i); %>)].onclick = function() {
+									modalArray[parseInt(<% out.print(i); %>)].style.display = "block";
+								}
+								// When the user clicks on <span> (x), close the modal
+								spanArray[parseInt(<% out.print(i); %>)].onclick = function() {
+									modalArray[parseInt(<% out.print(i); %>)].style.display = "none";
+								}
+								// When the user clicks anywhere outside of the modal, close it
+								window.onclick = function(event) {
+									if (event.target == modalArray[parseInt(<% out.print(i); %>)]) {
+										modalArray[parseInt(<% out.print(i); %>)].style.display = "none";
+									}
+								}
+							</script>				
+						</div>			
+					</div>		
 				<%
-				
+				i++;
 				}
 				//close the connection.
 				result.close();
 				stmt.close();
 				con.close();
-				if(len==0){
+				if(i==0){
 					out.print("No matches found");
 				}
 				else{

@@ -32,7 +32,6 @@
 			int Low_bound = Integer.parseInt(request.getParameter("Lower Increment Bound"));
 			int Secret_min = Integer.parseInt(request.getParameter("Secret Min"));
 			String Close_date = request.getParameter("Close Date");
-
 			
 			String item_str = "INSERT INTO Item(model,make,car_type,color,car_year,vin) VALUES(?,?,?,?,?,?);";
 			String auction_str = "INSERT INTO Auction(seller_name,vin,intital_bidding_price,lbound_increment,secret_min,close_date) VALUES(?,?,?,?,?,?);";
@@ -41,11 +40,8 @@
 			String check_seller ="SELECT COUNT(*) FROM Seller WHERE(seller_username= '"+username+"')";
 			String check_item_sold ="SELECT COUNT(*) FROM Sells WHERE(seller_username= '"+username+"' AND vin = '"+vin+"')";
 
-
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-		
-		
-			
+
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(item_str);
 			PreparedStatement pst = con.prepareStatement(auction_str);
@@ -66,11 +62,6 @@
 			result = s.executeQuery(check_item_sold);
 			psst.close();
 
-			
-			
-			
-	
-	
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
 			ps.setString(1, Car_model);
 			ps.setString(2, Car_make);
