@@ -15,11 +15,15 @@
 	    session.invalidate();
 		String prevPage = request.getParameter("prev");
 		String pageNum = request.getParameter("page");
+		String id = request.getParameter("id");
 		if(prevPage==null){
 			out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 		}
-		else if(pageNum==null){
+		else if(pageNum==null && id==null){
 			out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"\"' />");
+		}
+		else if(pageNum==null && id!=null){
+			out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"&id="+id+"\"' />");
 		}
 		else{
 			out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"&page="+pageNum+"\"' />");

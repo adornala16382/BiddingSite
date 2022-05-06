@@ -22,8 +22,12 @@
 		}
 		else{
 			String pageNum = request.getParameter("page");
-			if(pageNum==null){
+			String id = request.getParameter("id");
+			if(pageNum==null && id==null){
 				out.print("<form method=\"post\" action=\"LoginLogic.jsp?prev="+prevPage+"\" />");
+			}
+			else if(pageNum==null && id!=null){
+				out.print("<form method=\"post\" action=\"LoginLogic.jsp?prev="+prevPage+"&id="+id+"\" />");
 			}
 			else{
 				out.print("<form method=\"post\" action=\"LoginLogic.jsp?prev="+prevPage+"&page="+pageNum+"\" />");

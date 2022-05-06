@@ -60,12 +60,17 @@
 					}
 					else{
 						String pageNum = request.getParameter("page");
-						if(pageNum==null){
+						String id = request.getParameter("id");
+						if(pageNum==null && id==null){
 							out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"\"' />");
+						}
+						else if(pageNum==null && id!=null){
+							out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"&id="+id+"\"' />");
 						}
 						else{
 							out.print("<meta http-equiv='Refresh' content='0; url=\""+prevPage+"&page="+pageNum+"\"' />");
 						}
+
 					}
 				}
 				else{

@@ -104,6 +104,19 @@
      <div class="padding20"> </div>
      <div class="QnAouter">
 	 <h3>Customer questions & answers</h3>
+	 <form method="get" action="Details.jsp?">
+		<% String search = request.getParameter("key"); 
+			if(search!=null){
+				out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
+			}
+			else{
+				search = "";
+				out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
+			}
+		%>
+		<input class="searchButton" type="submit" value="Search" />
+		<input type="hidden" name="id" value="<%out.print(id);%>" />
+	</form>
 	<script>
 		var modalArray = [];
 		var buttonArray = [];
@@ -118,13 +131,25 @@
 		
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
-		String str = "SELECT * FROM Question WHERE vin='"+id+"';";
-		//Run the query against the database.
-		ResultSet result = stmt.executeQuery(str);
+		Statement newStmt = con.createStatement();
+		String str = "CREATE TEMPORARY TABLE T("
+				+ "select question.question,question.vin,question.qid,answer.answer,question.qUsername,answer.aUsername from question "
+				+ "left outer join answer "
+				+ "on question.qid = answer.qid "
+				+ "union all "
+				+ "select question.question,question.vin,question.qid,answer.answer,question.qUsername,answer.aUsername from answer "
+				+ "left outer join question "
+				+ "on answer.qid = question.qid "
+				+ "where question.qid IS NULL"
+				+ ");";
+		String newStr = "select * from t "
+				+ "where vin="+id+" and (t.question LIKE '%"+search+"%' or t.answer LIKE '%"+search+"%') GROUP BY t.qid;";
+		stmt.executeUpdate(str);
+		ResultSet result = newStmt.executeQuery(newStr);
 		int count = 0;
 		while(result.next()){
 			String question = result.getString("question");
-			String username = result.getString("username");
+			String username = result.getString("qUsername");
 			int qid = Integer.parseInt(result.getString("qid"));
 			
 			out.print("<div class=\"QnAquestion\"><h4>Q: "+question+"</h4>");
@@ -135,7 +160,7 @@
 			ResultSet result2 = stmt2.executeQuery(str2);
 			while(result2.next()){
 				String answer = result2.getString("answer");
-				String CRusername = result2.getString("username");
+				String CRusername = result2.getString("aUsername");
 				out.print("<div class=\"QnAanswer\"><h4>A: "+answer+"</h4>");
 				out.print("<p>By: "+CRusername+"</p></div>");
 			}
@@ -187,6 +212,13 @@
 	     <%}
 			count++;
 			out.print("<div class=\"padding20\"></div>");
+		}
+		Statement finalStmt = con.createStatement();
+		String finalStr = "DROP TABLE T;";
+		finalStmt.executeUpdate(finalStr);
+		
+		if(count==0){
+			out.print("No matches found");
 		}
 		//close the connection.
 		result.close();
