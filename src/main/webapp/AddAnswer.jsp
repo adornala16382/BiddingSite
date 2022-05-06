@@ -29,7 +29,7 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			//Make an insert statement for the Account table:
-			String insert = "INSERT INTO Answer(qid, username, answer)"
+			String insert = "INSERT INTO Answer(qid, aUsername, answer)"
 						+ "VALUES (?, ?, ?)";
 			
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query

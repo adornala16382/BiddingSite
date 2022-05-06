@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 html *{
-	font-family: Georgia, serif;
+	font-family: Verdana, sans-serif;
 }
 body{
   margin-top:0;
@@ -254,4 +254,10 @@ color: black;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left:47%;
+}
+.historyDiv{
+}
+.historyTable{
+	width: 500px;
+	margin: auto;
 }

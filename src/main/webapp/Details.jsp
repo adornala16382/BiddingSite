@@ -51,7 +51,77 @@
 	<%
 		String id = request.getParameter("id");
 		out.print(id);
-	%>
+		%>
+        <!-- Trigger/Open The Modal -->
+        <button id="historyBtn">History of Bids</button>
+
+        <!-- The Modal -->
+        <div id="historyModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span id="historyClose" class="close">&times;</span>
+                <h3>History</h3>
+                <div class="historyDiv">
+	                <table class="historyTable">
+					  <tr>
+					    <th>Bidder Username</th>
+					    <th>Price($)</th>
+					    <th>Time</th>
+					  </tr>
+					  <%
+						//Get the database connection
+						ApplicationDB db2 = new ApplicationDB();	
+						Connection con2 = db2.getConnection();	
+						
+						//Create a SQL statement
+						Statement historyStmt = con2.createStatement();
+						String historyStr = "SELECT * FROM Bids WHERE vin='"+id+"'";
+						
+						ResultSet historyResult = historyStmt.executeQuery(historyStr);
+						while(historyResult.next()){
+							String buyer_username = historyResult.getString("buyer_username");
+							String bidding_price = historyResult.getString("bidding_price");
+							String bidding_time = historyResult.getString("bidding_time");
+							out.print("<tr><td>"+buyer_username+"</td>");
+							out.print("<td>"+bidding_price+"</td>");
+							out.print("<td>"+bidding_time+"</td></tr>");
+						}
+						//close the connection.
+						historyResult.close();
+						historyStmt.close();
+						con2.close();
+					  %>
+					</table>
+				</div>
+            </div>
+        </div>
+        <script>
+            var historyModal = document.getElementById("historyModal");
+
+            // Get the button that opens the modal
+            var historyBtn = document.getElementById("historyBtn");
+
+            // Get the <span> element that closes the modal
+            var historySpan = document.getElementById("historyClose");
+
+            // When the user clicks on the button, open the modal
+            historyBtn.onclick = function() {
+            	historyModal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            historySpan.onclick = function() {
+            	historyModal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+	             if (event.target == historyModal) {
+	                 historyModal.style.display = "none";
+	             }
+            }
+        </script>			
 	</div>
 	<% 
 	String sessType = (String)session.getAttribute("type");
@@ -64,7 +134,7 @@
 
              <!-- Modal content -->
              <div class="modal-content">
-                 <span class="close">&times;</span>
+                 <span id="close" class="close">&times;</span>
                  <h3>Type question below</h3>
              	<form method="post" action="AddQuestion.jsp">
              		<input type="text" name="question" size="75" maxLength="150" placeholder="type here"/><br>
@@ -81,7 +151,7 @@
              var btn = document.getElementById("myBtn");
 
              // Get the <span> element that closes the modal
-             var span = document.getElementsByClassName("close")[0];
+             var span = document.getElementById("close");
 
              // When the user clicks on the button, open the modal
              btn.onclick = function() {

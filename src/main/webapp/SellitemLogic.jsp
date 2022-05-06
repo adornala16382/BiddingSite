@@ -34,7 +34,7 @@
 			String Close_date = request.getParameter("Close Date");
 			
 			String item_str = "INSERT INTO Item(model,make,car_type,color,car_year,vin) VALUES(?,?,?,?,?,?);";
-			String auction_str = "INSERT INTO Auction(seller_name,vin,intital_bidding_price,lbound_increment,secret_min,close_date) VALUES(?,?,?,?,?,?);";
+			String auction_str = "INSERT INTO Auction(seller_name,vin,initial_bidding_price,lbound_increment,secret_min,close_date) VALUES(?,?,?,?,?,?);";
 			String Seller_str = "INSERT INTO Seller(seller_username) VALUES(?);";
 			String Sells_str = "INSERT INTO Sells(seller_username,vin) VALUES(?,?);";
 			String check_seller ="SELECT COUNT(*) FROM Seller WHERE(seller_username= '"+username+"')";
