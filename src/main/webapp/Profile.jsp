@@ -11,28 +11,31 @@
 	<link href="styles.css" rel="stylesheet">
     <div class="topnav">
 		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
+		<% if(session.getAttribute("username")!=null){  
+			String username=(String)session.getAttribute("username");
+        	out.print("<a>Welcome "+username+"</a>"); 
+		}
+		%>
 		<div class="topnav-right">
-			<% 	
-				String prevURI = request.getRequestURI();
-	        	String prevParam = request.getQueryString();
-	        	String prevPath;
-	        	if(prevParam==null){
-	        		prevPath = prevURI;
-	        	}
-	        	else{
-	        		prevPath = prevURI+"?"+prevParam;
-	        	}
-		        if(session.getAttribute("username")!=null){  
-					String username=(String)session.getAttribute("username");
-		        	out.print("<a>Welcome "+username+"</a>"); 
-		        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
-					%>
-					<a href="Profile.jsp">Profile</a>
-		        <%}  
-		        else{
-		        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
-		        	out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
-		        }    
+			<%
+			String prevURI = request.getRequestURI();
+        	String prevParam = request.getQueryString();
+        	String prevPath;
+        	if(prevParam==null){
+        		prevPath = prevURI;
+        	}
+        	else{
+        		prevPath = prevURI+"?"+prevParam;
+        	}
+	        if(session.getAttribute("username")!=null){  
+	        	out.print("<a href=\"Sellitem.jsp?prev="+prevPath+"\">Sell Car</a>");
+	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
+				%>
+				<a href="Profile.jsp">Profile</a>
+	        <%}  
+	        else{
+	        	out.print("<a href=\"Login.jsp?prev="+prevPath+"\">Sign In</a>");
+	        }  
 			%>
 		</div>
 	</div>
@@ -52,15 +55,18 @@
 	        	}
 	        }
 	      %>
+	      	<form method="get" action="ViewAccountActivity.jsp">
+	      	<input type="submit" value="View Account Activity">
+	      	<input type="hidden" name="username" value="<%out.print(username);%>"></form>
             <!-- Trigger/Open The Modal -->
-            <button id="myBtn">Delete Account</button>
+            <button id="myBtn" class="deleteBtn">Delete Account</button>
 
             <!-- The Modal -->
             <div id="myModal" class="modal">
 
                 <!-- Modal content -->
                 <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <span id="close" class="close">&times;</span>
                     <h3>Are you sure you want to delete your account?</h3>
                 	<form method="post" action="DeleteAcc.jsp">
                     	<input type="submit" value="Confirm" />
@@ -74,7 +80,7 @@
                 var btn = document.getElementById("myBtn");
 
                 // Get the <span> element that closes the modal
-                var span = document.getElementsByClassName("close")[0];
+                var span = document.getElementById("close");
 
                 // When the user clicks on the button, open the modal
                 btn.onclick = function() {

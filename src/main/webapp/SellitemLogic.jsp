@@ -3,6 +3,7 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <%@ page import="java.time.LocalDateTime"%>
+<%@ page import="java.time.format.DateTimeFormatter"%> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,6 +19,8 @@
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
 			
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			//Get the combobox from the index.jsp
@@ -30,11 +33,17 @@
 			String vin = request.getParameter("Car Vin");
 			int Start_Bid = Integer.parseInt(request.getParameter("Starting Bid"));
 			int Low_bound = Integer.parseInt(request.getParameter("Lower Increment Bound"));
-			int Secret_min = Integer.parseInt(request.getParameter("Secret Min"));
+			int Secret_min;
+			if(request.getParameter("Secret Min").equals("")){
+				Secret_min = 0;
+			}
+			else{
+				Secret_min = Integer.parseInt(request.getParameter("Secret Min"));
+			}
 			String Close_date = request.getParameter("Close Date");
 			
 			String item_str = "INSERT INTO Item(model,make,car_type,color,car_year,vin) VALUES(?,?,?,?,?,?);";
-			String auction_str = "INSERT INTO Auction(seller_name,vin,initial_bidding_price,lbound_increment,secret_min,close_date) VALUES(?,?,?,?,?,?);";
+			String auction_str = "INSERT INTO Auction(seller_name,vin,initial_bidding_price,lbound_increment,secret_min,open_date,close_date) VALUES(?,?,?,?,?,?,?);";
 			String Seller_str = "INSERT INTO Seller(seller_username) VALUES(?);";
 			String Sells_str = "INSERT INTO Sells(seller_username,vin) VALUES(?,?);";
 			String check_seller ="SELECT COUNT(*) FROM Seller WHERE(seller_username= '"+username+"')";
@@ -76,7 +85,8 @@
 			pst.setInt(3, Start_Bid);
 			pst.setInt(4, Low_bound);
 			pst.setInt(5, Secret_min);
-			pst.setString(6, Close_date);
+			pst.setString(6, dtf.format(LocalDateTime.now()));
+			pst.setString(7, Close_date);
 			pst.executeUpdate();
 			
 			if(numRows<1){

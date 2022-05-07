@@ -48,7 +48,7 @@
 				out.print("<meta http-equiv='Refresh' content='0; url=\"Home.jsp\"' />");
 			}
 			
-			out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"  Search for items..\">");
+			out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
 		%>
 		<input class="searchButton" type="submit" value="Search" />
 		<input type="hidden" name="page" value="0" />

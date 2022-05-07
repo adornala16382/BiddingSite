@@ -176,13 +176,10 @@
 	 <h3>Customer questions & answers</h3>
 	 <form method="get" action="Details.jsp?">
 		<% String search = request.getParameter("key"); 
-			if(search!=null){
-				out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
-			}
-			else{
+			if(search==null){
 				search = "";
-				out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for items..\">");
 			}
+			out.print("<input class=\"searchBar\" type=\"text\" value=\""+search+"\" name=\"key\" placeholder=\"Search for questions and answers...\">");
 		%>
 		<input class="searchButton" type="submit" value="Search" />
 		<input type="hidden" name="id" value="<%out.print(id);%>" />

@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>SellItem</title>
+	<title>Sell Item</title>
 	<link href="styles.css" rel="stylesheet">
 	<div class="topnav">
 		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
