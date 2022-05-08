@@ -11,9 +11,60 @@
 	<link href="styles.css" rel="stylesheet">
 	<div class="topnav">
 		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
-		
+		<% if(session.getAttribute("username")!=null){  
+			String username=(String)session.getAttribute("username");
+			String visits = (String)session.getAttribute("visits");
+			int numVisits = Integer.parseInt(visits) + 1;
+			session.setAttribute("visits", String.valueOf(numVisits));
+			try{
+				//Get the database connection
+				ApplicationDB db = new ApplicationDB();	
+				Connection con = db.getConnection();	
+				
+				//Create a SQL statement
+				//Second statement
+				if(visits.equals("1")){
+					Statement stmt = con.createStatement();
+					String str = "SELECT * FROM Alert WHERE alert_username='"+username+"';";
+					ResultSet result = stmt.executeQuery(str);
+					while(result.next()){
+						String alert_username = result.getString("alert_username");
+						String model = result.getString("model");
+						String make = result.getString("make");
+						String car_type = result.getString("car_type");
+						String color = result.getString("color");
+						//
+						Statement stmt2 = con.createStatement();
+						String str2 = "SELECT COUNT(*) FROM Auction "
+								+"JOIN Item ON Auction.vin=Item.vin "
+								+"WHERE model LIKE '%"+model+"%' AND make LIKE '%"+make+"%' AND car_type LIKE '%"+car_type+"%' AND color LIKE '%"+color+"%';";
+						ResultSet result2 = stmt2.executeQuery(str2);
+						if(result2.next()){
+							if(result2.getString("COUNT(*)").equals("0")==false){
+								//display alert
+								%>
+								<div class="alert">
+								  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+								  You have a new alert! Please check your alerts tab.
+								</div>
+								<% 
+							}
+							result2.close();
+							stmt2.close();
+						}
+						result.close();
+						stmt.close();
+					}
+				}
+				con.close();
+			}catch (Exception ex) {
+				out.print(ex);
+			}
+        	out.print("<a>Welcome "+username+"</a>"); 
+		}
+		%>
 		<div class="topnav-right">
-			<% 	
+			<%
 			String prevURI = request.getRequestURI();
         	String prevParam = request.getQueryString();
         	String prevPath;
@@ -23,14 +74,11 @@
         	else{
         		prevPath = prevURI+"?"+prevParam;
         	}
-	        if(session.getAttribute("username")!=null){  
-				String username=(String)session.getAttribute("username");
-				
-				out.print("<a>Welcome "+username+"</a>");
-	        	out.print("<a href=Sellitem.jsp>Sell Car</a>");
+	        if(session.getAttribute("username")!=null){
+	        	out.print("<a href=\"Alerts.jsp?prev="+prevPath+"\">Alerts</a>");
+	        	out.print("<a href=\"Sellitem.jsp?prev="+prevPath+"\">Sell Vehicle</a>");
 	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
 				%>
-				
 				<a href="Profile.jsp">Profile</a>
 	        <%}  
 	        else{
@@ -134,7 +182,7 @@
 					%>
 						</ul>
 						
-						<button  class ="bb" id=<% out.print("Button"+vin); %>>Bid For Item</button>
+						<button  class ="bb_red" id=<% out.print("Button"+vin); %>>Bid For Item</button>
 						<div class="modal" id=<% out.print("Modal"+vin); %>>
 	             <!-- Modal content -->
 			             <div class="modal-content">

@@ -71,7 +71,7 @@
     	}
       %>
       	<br>
-	    <input type="submit" value="Create Account" />
+	    <input class="bb_blue" type="submit" value="Create Account" />
     </form>
 </body>
 </html>

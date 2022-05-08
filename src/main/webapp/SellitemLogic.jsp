@@ -9,7 +9,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Sell Item Logic</title>
 	<link href="styles.css" rel="stylesheet">
 </head>
 <body>
@@ -45,7 +45,6 @@
 			String item_str = "INSERT INTO Item(model,make,car_type,color,car_year,vin) VALUES(?,?,?,?,?,?);";
 			String auction_str = "INSERT INTO Auction(seller_name,vin,initial_bidding_price,lbound_increment,secret_min,open_date,close_date) VALUES(?,?,?,?,?,?,?);";
 			String Seller_str = "INSERT INTO Seller(seller_username) VALUES(?);";
-			String Sells_str = "INSERT INTO Sells(seller_username,vin) VALUES(?,?);";
 			String check_seller ="SELECT COUNT(*) FROM Seller WHERE(seller_username= '"+username+"')";
 			String check_item_sold ="SELECT COUNT(*) FROM Sells WHERE(seller_username= '"+username+"' AND vin = '"+vin+"')";
 
@@ -55,7 +54,6 @@
 			PreparedStatement ps = con.prepareStatement(item_str);
 			PreparedStatement pst = con.prepareStatement(auction_str);
 			PreparedStatement psst = con.prepareStatement(Seller_str);
-			PreparedStatement psells = con.prepareStatement(Sells_str);
 
 			//result.getString("COUNT(*)").equals("1")==true
 			Statement s = con.createStatement();
@@ -89,14 +87,8 @@
 			pst.setString(7, Close_date);
 			pst.executeUpdate();
 			
-			if(numRows<1){
-				psells.setString(1, username);
-				psells.setString(2, vin);
-				psells.executeUpdate();
-			}
 
 			result.close();
-			psells.close();
 			
 			
 			//close the connection

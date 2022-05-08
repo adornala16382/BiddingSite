@@ -19,6 +19,9 @@ input {
 .padding20{
 	margin-bottom: 20px;
 }
+.padding10{
+	margin-bottom: 10px;
+}
 .padding50{
 	margin-bottom: 50px;
 }
@@ -74,11 +77,12 @@ color: black;
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
+	border-radius: 10px 10px 10px 10px;
+  background-color: #d6dcdc;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 70%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
@@ -113,6 +117,30 @@ color: black;
 	text-align:center;
 	border: 2px solid black;
 }
+regularBtn[type="button"], regularBtn[type="submit"] { 
+ padding: 1.3em 3em;
+ font-size: 12px;
+ text-transform: uppercase;
+ letter-spacing: 2.5px;
+ font-weight: 500;
+ color: #000;
+ background-color: #9bcdff;
+ border: none;
+ border-radius: 45px;
+ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+ transition: all 0.3s ease 0s;
+ cursor: pointer;
+ outline: none;
+} 
+regularBtn[type="button"]:hover, regularBtn[type="submit"]:hover { 
+ background-color: #4aa5ff;
+ box-shadow: 0px 15px 20px rgba(238, 232, 170, 0.4);
+ color: #fff;
+ transform: translateY(-7px);
+} 
+regularBtn[type="button"]:active, regularBtn[type="submit"]:active { 
+transform: translateY(-1px);
+} 
 .search{
 	margin-top:100px;	
 }
@@ -123,11 +151,14 @@ color: black;
 	height:43px;
 	width:100px;
 	color: white;
-	background-color:#004080;
+	background-color:#005bb7;
 	outline: 1px solid black;
 }
+.searchButton[type="submit"]:hover{
+	background-color:#007af4;
+}
 .searchBar{
-	background-color: #d0d0d0;
+	background-color: #dadada;
 	border-radius: 10px;
 	outline: 1px solid black;
 	height: 30px;
@@ -138,7 +169,7 @@ color: black;
 	margin-right:0px;
 }
 .searchBar:hover{
-	background-color:#dadada;
+	background-color:#e4e4e4;
 }
 
 .items li{
@@ -191,14 +222,15 @@ color: black;
 	margin-bottom:0;
 	
 }
-.bb{
+.bb_blue{
+	margin: 10px;
  padding: 1.3em 3em;
  font-size: 12px;
  text-transform: uppercase;
  letter-spacing: 2.5px;
  font-weight: 500;
  color: #000;
- background-color: #fff;
+ background-color: #76b4fe;
  border: none;
  border-radius: 45px;
  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -206,14 +238,40 @@ color: black;
  cursor: pointer;
  outline: none;
 }
-.bb:hover {
- background-color: #F8B400;
- box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+.bb_blue:hover {
+ background-color: #317dfd;
+ box-shadow: 0px 15px 20px rgba(238, 232, 170, 0.4);
  color: #fff;
  transform: translateY(-7px);
 }
 
-.bb:active {
+.bb_blue:active {
+ transform: translateY(-1px);
+}
+.bb_red{
+	margin: 10px;
+ padding: 1.3em 3em;
+ font-size: 12px;
+ text-transform: uppercase;
+ letter-spacing: 2.5px;
+ font-weight: 500;
+ color: #000;
+ background-color: #ff7979;
+ border: none;
+ border-radius: 45px;
+ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+ transition: all 0.3s ease 0s;
+ cursor: pointer;
+ outline: none;
+}
+.bb_red:hover {
+ background-color: #ff3e3e;
+ box-shadow: 0px 15px 20px rgba(238, 232, 170, 0.4);
+ color: #fff;
+ transform: translateY(-7px);
+}
+
+.bb_red:active {
  transform: translateY(-1px);
 }
 
@@ -271,41 +329,23 @@ color: black;
 	width: 500px;
 	margin: auto;
 }
-input[type="button"], input[type="submit"] { 
-	border-radius: 10px;
-	padding: 10px;
-    color:#050; 
-    font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
-    background-color:#fed; 
-    border:1px solid; 
-    border-color: black; 
-} 
-input[type="button"]:hover, input[type="submit"]:hover { 
-    background-color:#0080ff; 
-} 
-.deleteBtn{
-	color:white; 
-	padding:10px;
-	border-radius: 10px;
-    font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
-    background-color:red; 
-    border:1px solid; 
-    border-color: black; 
-}
-.deleteBtn:hover{
-	color:white; 
-    background-color:#ff8080; 
-}
 .activityDiv{
+	border-radius: 10px 10px 10px 10px;
+	background-color: grey;
 	margin-left: 50px;
   float: left;
   width: 40%;
-  padding: 5px;
+  padding: 10px;
+  outline: 5px solid black;
 }
 .activityDiv2{
+	border-radius: 10px 10px 10px 10px;
+	background-color: grey;
 	margin-right: 50px;
 	float:right;
 	width: 40%;
+	padding: 10px;
+	outline: 5px solid black;
 }
 .activityTable{
 	width: 100%;
@@ -313,14 +353,81 @@ input[type="button"]:hover, input[type="submit"]:hover {
 .activityTable2{
 	width: 100%;
 }
+table{
+	outline: 3px solid #000053;
+	border-radius: 5px 5px 5px 5px;
+}
 th {
-  background-color: #004080;
-  color: white;
-  outline: 1px solid black;
+  background-color: #005bb7;
+  color: #ffc62f;
+  outline: 1px solid #91b1ff;
+}
+th:hover {
+  background-color: #007af4;
 }
 td {
   background-color: #dadada;
   color: black;
-  outline: 1px solid black;
+  outline: 1px solid white;
+  padding: 10px;
+}
+td:hover {
+  background-color: #e4e4e4;
+}
+td:nth-child(1) {
+  background-color: #6666ff;
+  color: white;
+}
+td:nth-child(1):hover {
+  background-color: #8484ff;
+}
+tr:nth-child(even){
+    background-color: #000000;
+}
+.alertDiv{
+}
+.alertTable{
+	width: 500px;
+	margin: auto;
+}
+.alertTable2{
+	width: 80%;
+	margin: auto;
+}
+.remove{
+	color: white;
+	background-color: red;
+	border-radius: 5px 5px 5px 5px;
+}
+.remove:hover{
+	background-color: #ff8080;
+}
+.remove a{
+	text-decoration:none;
+	color: white;
+}
+/* The alert message box */
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
 }
 

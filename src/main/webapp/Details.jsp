@@ -9,7 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Profile</title>
 	<link href="styles.css" rel="stylesheet">
-    <div class="topnav">
+	<div class="topnav">
 		<a class="logo" href="Home.jsp"><img src="BuyMeLogo.png" width = "auto" height = "35"></a>
 		<% if(session.getAttribute("username")!=null){  
 			String username=(String)session.getAttribute("username");
@@ -17,7 +17,7 @@
 		}
 		%>
 		<div class="topnav-right">
-			<% 	
+			<%
 			String prevURI = request.getRequestURI();
         	String prevParam = request.getQueryString();
         	String prevPath;
@@ -27,7 +27,9 @@
         	else{
         		prevPath = prevURI+"?"+prevParam;
         	}
-	        if(session.getAttribute("username")!=null){  
+	        if(session.getAttribute("username")!=null){
+	        	out.print("<a href=\"Alerts.jsp?prev="+prevPath+"\">Alerts</a>");
+	        	out.print("<a href=\"Sellitem.jsp?prev="+prevPath+"\">Sell Vehicle</a>");
 	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
 				%>
 				<a href="Profile.jsp">Profile</a>
@@ -285,7 +287,7 @@
 		finalStmt.executeUpdate(finalStr);
 		
 		if(count==0){
-			out.print("No matches found");
+			out.print("No questions and answers");
 		}
 		//close the connection.
 		result.close();

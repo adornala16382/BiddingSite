@@ -34,6 +34,7 @@
 					String type = "Regular";
 			        request.getSession();  
 			        session.setAttribute("username",username);
+			        session.setAttribute("visits","0");
 					result.close();
 					stmt.close();
 					

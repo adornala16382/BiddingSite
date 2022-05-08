@@ -27,7 +27,8 @@
         	else{
         		prevPath = prevURI+"?"+prevParam;
         	}
-	        if(session.getAttribute("username")!=null){  
+	        if(session.getAttribute("username")!=null){
+	        	out.print("<a href=\"Alerts.jsp?prev="+prevPath+"\">Alerts</a>");
 	        	out.print("<a href=\"Sellitem.jsp?prev="+prevPath+"\">Sell Car</a>");
 	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
 				%>
@@ -41,6 +42,7 @@
 	</div>
 </head>
 <body>
+<div class="padding50"></div>
 	<% 	
 	    if(session.getAttribute("username")!=null){  
 	        String username=(String)session.getAttribute("username");
@@ -55,11 +57,13 @@
 	        	}
 	        }
 	      %>
+	      <div class="padding20"></div>
 	      	<form method="get" action="ViewAccountActivity.jsp">
-	      	<input type="submit" value="View Account Activity">
+	      	<input class="bb_blue" type="submit" value="View Account Activity">
 	      	<input type="hidden" name="username" value="<%out.print(username);%>"></form>
+	      	<div class="padding10"></div>
             <!-- Trigger/Open The Modal -->
-            <button id="myBtn" class="deleteBtn">Delete Account</button>
+            <button id="myBtn" class="bb_red">Delete Account</button>
 
             <!-- The Modal -->
             <div id="myModal" class="modal">
@@ -69,7 +73,7 @@
                     <span id="close" class="close">&times;</span>
                     <h3>Are you sure you want to delete your account?</h3>
                 	<form method="post" action="DeleteAcc.jsp">
-                    	<input type="submit" value="Confirm" />
+                    	<input class="bb_red" type="submit" value="Confirm" />
 					</form>
                 </div>
             </div>

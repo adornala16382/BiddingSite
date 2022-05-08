@@ -27,8 +27,9 @@
         	else{
         		prevPath = prevURI+"?"+prevParam;
         	}
-	        if(session.getAttribute("username")!=null){  
-	        	out.print("<a href=\"Sellitem.jsp?prev="+prevPath+"\">Sell Car</a>");
+	        if(session.getAttribute("username")!=null){
+	        	out.print("<a href=\"Alerts.jsp?prev="+prevPath+"\">Alerts</a>");
+	        	out.print("<a href=\"Sellitem.jsp?prev="+prevPath+"\">Sell Vehicle</a>");
 	        	out.print("<a href=\"LogoutLogic.jsp?prev="+prevPath+"\">Sign Out</a>");
 				%>
 				<a href="Profile.jsp">Profile</a>
