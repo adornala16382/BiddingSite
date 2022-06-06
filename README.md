@@ -54,7 +54,10 @@ information about them)
 
 # DEMO #
 
-
 https://user-images.githubusercontent.com/80138563/172261781-50e24111-79a7-4a5a-a3be-207ff14a0dad.mp4
+
+# Entity Relationship (ER) Diagram #
+
+![ER_Diagram](https://user-images.githubusercontent.com/80138563/172263646-302a0518-098a-4ac5-9a8d-1bc8d411f354.PNG)
 
 
