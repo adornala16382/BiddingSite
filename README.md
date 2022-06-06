@@ -51,3 +51,10 @@ information about them)
     * edits and deletes account information 
     * removes bids  
     * removes auctions
+
+# DEMO #
+
+
+https://user-images.githubusercontent.com/80138563/172261781-50e24111-79a7-4a5a-a3be-207ff14a0dad.mp4
+
+
