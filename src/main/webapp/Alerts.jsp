@@ -216,20 +216,20 @@
 								+" ON Auction.vin=Item.vin"
 								+" LEFT JOIN Bids"
 								+" ON Auction.vin=Bids.vin"
-								+" WHERE Item.model LIKE '%"+model+"%' AND Item.make LIKE '%"+make+"%' AND Item.car_type LIKE '%"+car_type+"%' AND Item.color LIKE '%"+color+"%';";
+								+" WHERE Item.model LIKE '%"+model+"%' AND Item.make LIKE '%"+make+"%' AND Item.car_type LIKE '%"+car_type+"%' AND Item.color LIKE '%"+color+"%' GROUP BY vin;";
 						ResultSet result2 = stmt2.executeQuery(str2);
 						while(result2.next()){
-							String vin = result2.getString("vin");
-							if(vin!=null){
+							if(result2.getString("vin")!=null){
+								String vin = result2.getString("vin");
 								String seller_name = result2.getString("seller_name");
 								String curPrice = result2.getString("curPrice");
 								if(curPrice==null){
 									curPrice = result2.getString("initial_bidding_price");
 								}
-								String model2 = result.getString("model");
-								String make2 = result.getString("make");
-								String car_type2 = result.getString("car_type");
-								String color2 = result.getString("color");	
+								String model2 = result2.getString("model");
+								String make2 = result2.getString("make");
+								String car_type2 = result2.getString("car_type");
+								String color2 = result2.getString("color");	
 								out.print("<tr>");
 								out.print("<td>"+seller_name+"</td>");
 								out.print("<td><a href=Details.jsp?id="+vin+">"+vin+"</a></td>");

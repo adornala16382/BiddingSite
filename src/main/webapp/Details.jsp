@@ -18,6 +18,7 @@
 		%>
 		<div class="topnav-right">
 			<%
+			String sessType = (String)session.getAttribute("type");
 			String prevURI = request.getRequestURI();
         	String prevParam = request.getQueryString();
         	String prevPath;
@@ -51,11 +52,45 @@
 	<div class="padding20"></div>
 	<div class="detailBox">
 	<%
+		ApplicationDB db3 = new ApplicationDB();	
+		Connection con3 = db3.getConnection();
 		String id = request.getParameter("id");
-		out.print(id);
+		String curr_auction = "SELECT * FROM Auction WHERE Auction.vin = '"+id+"';";
+        String maxbid = "SELECT buyer_username as name ,vin,  MAX(bidding_price) as maxb FROM Bids WHERE Bids.vin = '"+id+"' GROUP BY Bids.buyer_username,Bids.vin; ";
+        Statement cs = con3.createStatement();
+        ResultSet cd = cs.executeQuery(curr_auction);
+        Statement ms = con3.createStatement();
+        ResultSet md = ms.executeQuery(maxbid);
+        String closed=  "";
+
+        int secretmin =0;
+        while(cd.next()){
+             closed=  cd.getString("closed");
+             secretmin = cd.getInt("secret_min");
+
+        }
+        String winner = "";
+        int finalbid =0;
+        if(md.next()){
+             winner = md.getString("name");
+             finalbid = md.getInt("maxb");
+
+        }
+        if(finalbid>=secretmin){
+            out.print("<h1>"+winner+" Has Won The Auction With a Final Bid of $"+finalbid+" </h1>");
+        }
+        else{
+        	out.print("<h1> No Winner</h1>");
+        }
+        cs.close();
+        cd.close();
+        ms.close();
+        md.close();
+        con3.close();
 		%>
+	</div>
         <!-- Trigger/Open The Modal -->
-        <button id="historyBtn">History of Bids</button>
+        <button class="bb_blue" id="historyBtn">History of Bids</button>
 
         <!-- The Modal -->
         <div id="historyModal" class="modal">
@@ -70,6 +105,10 @@
 					    <th>Bidder Username</th>
 					    <th>Price($)</th>
 					    <th>Time</th>
+					    <%if(sessType!=null && !sessType.equals("Regular")){
+					    	out.print("<th>Action</th>");
+					    }
+					    %>
 					  </tr>
 					  <%
 						//Get the database connection
@@ -85,9 +124,13 @@
 							String buyer_username = historyResult.getString("buyer_username");
 							String bidding_price = historyResult.getString("bidding_price");
 							String bidding_time = historyResult.getString("bidding_time");
+							String vin = historyResult.getString("vin");
 							out.print("<tr><td>"+buyer_username+"</td>");
 							out.print("<td>"+bidding_price+"</td>");
-							out.print("<td>"+bidding_time+"</td></tr>");
+							out.print("<td>"+bidding_time+"</td>");
+							if(sessType!=null && !sessType.equals("Regular")){
+							out.print("<td><button class='remove'><a href='removeBid.jsp?username="+buyer_username+"&vin="+id+"&price="+bidding_price+"'>Remove</a></button></td></tr>");
+							}
 						}
 						//close the connection.
 						historyResult.close();
@@ -124,12 +167,10 @@
 	             }
             }
         </script>			
-	</div>
 	<% 
-	String sessType = (String)session.getAttribute("type");
 	if(sessType!=null && sessType.equals("Regular")){ %>
          <!-- Trigger/Open The Modal -->
-         <button id="myBtn">Ask a question</button>
+         <button class="bb_blue" id="myBtn">Ask a question</button>
 
          <!-- The Modal -->
          <div id="myModal" class="modal">
@@ -142,7 +183,7 @@
              		<input type="text" name="question" size="75" maxLength="150" placeholder="type here"/><br>
              		<input type="hidden" name="id" value="<%out.print(id);%>"/>
              		<input type="hidden" name="prev" value="<%out.print(prevPath);%>"/>
-                 	<input type="submit" value="Submit" />
+                 	<input class="bb_blue" type="submit" value="Submit" />
 				</form>
              </div>
          </div>
@@ -197,32 +238,44 @@
 		//Get the database connection
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();	
-		
+
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		Statement newStmt = con.createStatement();
 		String str = "CREATE TEMPORARY TABLE T("
-				+ "select question.question,question.vin,question.qid,answer.answer,question.qUsername,answer.aUsername from question "
-				+ "left outer join answer "
-				+ "on question.qid = answer.qid "
-				+ "union all "
-				+ "select question.question,question.vin,question.qid,answer.answer,question.qUsername,answer.aUsername from answer "
-				+ "left outer join question "
-				+ "on answer.qid = question.qid "
-				+ "where question.qid IS NULL"
-				+ ");";
-		String newStr = "select * from t "
-				+ "where vin="+id+" and (t.question LIKE '%"+search+"%' or t.answer LIKE '%"+search+"%') GROUP BY t.qid;";
-		stmt.executeUpdate(str);
-		ResultSet result = newStmt.executeQuery(newStr);
-		int count = 0;
-		while(result.next()){
-			String question = result.getString("question");
-			String username = result.getString("qUsername");
-			int qid = Integer.parseInt(result.getString("qid"));
-			
+                + "select q.question,q.vin,q.qid,a.answer,q.qUsername,a.aUsername from question q "
+                + "left outer join answer a "
+                + "on q.qid = a.qid "
+                + "union all "
+                + "(select q.question,q.vin,q.qid,a.answer,q.qUsername,a.aUsername from answer a "
+                + "left outer join question q "
+                + "on a.qid = q.qid "
+                + "where q.qid IS NULL)"
+                + ");";
+        String newStr = "select * from t "
+                + "where t.vin="+id+" and (t.question LIKE '%"+search+"%' or t.answer LIKE '%"+search+"%');";
+        stmt.executeUpdate(str);
+        ResultSet result = newStmt.executeQuery(newStr);
+        int count = 0;
+        HashSet<Integer> set = new HashSet<>();
+        while(result.next()){
+            String question = result.getString("question");
+            String username = result.getString("qUsername");
+            int qid = Integer.parseInt(result.getString("qid"));
+            boolean added = set.add(qid);
+            if(!added) { continue; }
 			out.print("<div class=\"QnAquestion\"><h4>Q: "+question+"</h4>");
-			out.print("<div class=\"qBy\"><p>By: "+username+"</p></div></div>");
+			out.print("<div class=\"qBy\"><p>By: "+username+"</p></div>");
+			if(sessType!=null && !sessType.equals("Regular")){
+			%>
+			<form method="get" action="DeleteQuestion.jsp">
+				<input type="hidden" name="qid" value="<%out.print(qid);%>"/>
+				<input type="hidden" name="id" value="<%out.print(id);%>"/>
+				<input class="bb_red" type="submit" value="DELETE" />
+			</form>
+			<%
+			}
+			out.print("</div>");
 			Statement stmt2 = con.createStatement();
 			String str2 = "SELECT * FROM Answer WHERE qid='"+qid+"';";
 			//Run the query against the database.
@@ -237,7 +290,7 @@
 			stmt2.close();
 			if(sessType!=null && !sessType.equals("Regular")){ %>
 	         <!-- Trigger/Open The Modal -->
-	         <div class="qButtonDiv"><button class="qButton" id=<%out.print("myBtn"+count);%>>Reply</button></div>
+	         <div class="qButtonDiv"><button class="bb_blue" id=<%out.print("myBtn"+count);%>>Reply</button></div>
 
 	         <!-- The Modal -->
 	         <div id=<%out.print("modal"+count);%> class="modal">
@@ -250,7 +303,7 @@
 	             		<input type="text" name="answer" size="75" maxLength="150" placeholder="Your answer"/><br>
 	             		<input type="hidden" name="qid" value="<%out.print(qid);%>"/>
 	             		<input type="hidden" name="prev" value="<%out.print(prevPath);%>"/>
-	                 	<input type="submit" value="Submit" />
+	                 	<input class="bb_blue" type="submit" value="Submit" />
 					</form>
 	             </div>
 	         </div>

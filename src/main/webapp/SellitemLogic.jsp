@@ -43,10 +43,9 @@
 			String Close_date = request.getParameter("Close Date");
 			
 			String item_str = "INSERT INTO Item(model,make,car_type,color,car_year,vin) VALUES(?,?,?,?,?,?);";
-			String auction_str = "INSERT INTO Auction(seller_name,vin,initial_bidding_price,lbound_increment,secret_min,open_date,close_date) VALUES(?,?,?,?,?,?,?);";
+			String auction_str = "INSERT INTO Auction(seller_name,vin,initial_bidding_price,lbound_increment,secret_min,curBid,close_date) VALUES(?,?,?,?,?,?,?);";
 			String Seller_str = "INSERT INTO Seller(seller_username) VALUES(?);";
 			String check_seller ="SELECT COUNT(*) FROM Seller WHERE(seller_username= '"+username+"')";
-			String check_item_sold ="SELECT COUNT(*) FROM Sells WHERE(seller_username= '"+username+"' AND vin = '"+vin+"')";
 
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 
@@ -66,7 +65,6 @@
 				psst.executeUpdate();
 			}
 			result.close();
-			result = s.executeQuery(check_item_sold);
 			psst.close();
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
@@ -83,14 +81,10 @@
 			pst.setInt(3, Start_Bid);
 			pst.setInt(4, Low_bound);
 			pst.setInt(5, Secret_min);
-			pst.setString(6, dtf.format(LocalDateTime.now()));
+			pst.setInt(6, Start_Bid);
 			pst.setString(7, Close_date);
 			pst.executeUpdate();
-			
 
-			result.close();
-			
-			
 			//close the connection
 			ps.close();
 			pst.close();

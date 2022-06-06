@@ -52,7 +52,7 @@
 	        	out.print("<h4>Account type: "+type+"</h4>");
 	        	if(type.equals("Admin")){
 	        		out.print("<form method=\"post\" action=\"CreateAcc.jsp\" />");
-	        		out.print("<input type=\"submit\" value=\"Create Customer Representative\" />");
+	        		out.print("<input class=\"bb_blue\" type=\"submit\" value=\"Create Customer Representative\" />");
 	        		out.print("<input type=\"hidden\" name=\"CustomerRep\" value=\"True\" /></form>");
 	        	}
 	        }
@@ -63,6 +63,18 @@
 	      	<input type="hidden" name="username" value="<%out.print(username);%>"></form>
 	      	<div class="padding10"></div>
             <!-- Trigger/Open The Modal -->
+            <form action = "salesreport.jsp"> 
+            <input class="bb_blue" type="submit" name = "IS" value="Create Sales Report For Item" /> <br>
+            <input class="bb_blue" type="submit" name= "ES" value="Create Sales Report For Total Earnings" /><br>
+            <input class="bb_blue" type="submit" name = "ITS" value="Create Sales Report For Item Type" /><br>
+            <label  for="IITS">User name:</label><br>
+            <input type="text" name = "ITTS" value="" /><br>
+            <input class="bb_blue" type="submit" name = "EUS" value="Create Sales Report For End-User" /><br>
+            <input class="bb_blue" type="submit" name = "BSI" value="Create Sales Report For Best Selling Items" /><br>
+            <input class="bb_blue" type="submit" name = "BBS"value="Create Sales Report For Best Buyers" /><br>
+            
+            </form>
+
             <button id="myBtn" class="bb_red">Delete Account</button>
 
             <!-- The Modal -->

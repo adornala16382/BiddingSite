@@ -6,7 +6,7 @@ body{
   margin-top:0;
   margin-left:0;
   margin-right:0;
-  background-color: #474747;
+  background-color: #6b6b6b;
   text-align: center;
   vertical-align: middle;
 }
@@ -101,15 +101,15 @@ color: black;
 }
 
 .itemBox{
-	border-color:#FAF5E4;
 	border-radius: 25px;
-	margin-left:100px;
-	margin-right:100px;
+	margin-left: 300px;
+	width: 50%;
 	padding: 20px 50px 50px 50px;
 	text-align:center;
-	border: 2px solid #005555;
 }
-
+.closedauction{
+	background-color:red;
+}
 .detailBox{
 	margin-left:100px;
 	margin-right:100px;
@@ -274,7 +274,6 @@ transform: translateY(-1px);
 .bb_red:active {
  transform: translateY(-1px);
 }
-
 .pageNum{
 	background-color:#004080;
 	color: white;
@@ -430,4 +429,20 @@ tr:nth-child(even){
 .closebtn:hover {
   color: black;
 }
+.filterbox{
+	float: left;
+	margin-left: 30px;
+  padding-top: 100px;
+}
 
+.filterbox input{
+	margin-bottom: 20px;
+    border-radius:10px;
+    font-size: 12px;
+    width: 150px;
+}
+.SR table{
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:30px;
+}
